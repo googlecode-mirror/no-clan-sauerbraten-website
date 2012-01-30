@@ -1,0 +1,69 @@
+/* GENERAL */
+
+* {margin: 0; padding: 0;}
+
+body {
+	font: 15px Helmet, Freesans, sans-serif;
+	color: #181818;
+	background-color: #000000;
+}
+
+#main {
+	background: url('art/miniContent.png');
+	width: 620px;
+	padding: 20px;
+}
+
+/* TEXT */
+
+h1, h2, h3, h4, h5, h6 {font-family: 'Aldrich', sans-serif;}
+a {
+	color:#a00000;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:HOVER { text-decoration: underline;}
+
+h1 {font-size: 150%;}
+h2 {font-size: 120%;}
+h3 {font-size: 110%;}
+h1, p, span {padding-bottom: 0.6em;}
+
+div.darkfield{
+ 	background-color: #ddd;
+    border: 1px solid #ccc;
+    padding: 1em;
+}
+	
+/* FORMS */
+
+#main input, #main textarea{margin-bottom: 0.5em;}
+#main input[type="text"]{width: 280px;}
+#main input[type="submit"], #sidepanel input[type="submit"]{padding: 0.5em; margin-top: 1em;}
+
+option:HOVER, select:HOVER, textarea:HOVER, input:HOVER{}
+label{font-weight: bold; color: #404040;}
+select, option {}
+select {}
+
+/* ERRORS */
+div.error {	color: #d00505; margin-bottom: 1em; background-color: #151515; padding: 0.5em;}
+div.error p, div.error h3 {margin: 0; padding: 0;}
+
+/* SHOWUSER */
+
+div#userHeader img.userpic{
+	float: left;
+	margin: 0 20px 20px 0;
+	border: solid 3px #202020;
+}
+div#showuser h1, div#showuser h2, div#showuser h3 {padding: 0.2em 0 0.4em 0;}
+div#showuser h1 {font-size: 42px; padding-bottom: 0;}
+div#showuser span.label{
+	float: right;
+	color: #404040;
+	font: 15px Helmet, Freesans, sans-serif;
+}
+div#userHeader p {padding-bottom: 0;}
+
+div#userAbout{clear: both;}

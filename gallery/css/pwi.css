@@ -1,0 +1,122 @@
+.pwi_loader{
+	height: 60px;
+	width: 200;
+	border: 1px solid #7F7F7F;
+}
+
+.pwi_container{
+	color: #151515;
+	/*background-color: #FFFFFF;*/
+	/*font-family: Arial;*/font-family: Helmet, Freesans, sans-serif;
+	font-size: 15px;
+	line-height: 16px;
+	padding: 5px;
+}
+
+.pwi_container a{
+	color: #000000;
+}
+
+.pwi_album_description{
+	text-align: left;
+	color: #000000;
+	/*font-family: Arial;*/font-family: Helmet, Freesans, sans-serif;
+	font-size: 8pt;
+	background-color: #7F7F7F;
+	padding: 10px;
+
+}
+.pwi_album_description .title{
+	color: #000000;
+	font-size: 12pt;
+	margin-top: 10px;
+
+}
+.pwi_album_description .details{
+	color: #000000;
+	font-size: 8pt;
+	font-style: italic;
+}
+.pwi_album_description .description{
+	font-size: 10pt;
+	padding: 5px;
+}
+.pwi_album_description .sslink{
+
+}
+
+.pwi_album{
+	float: left;
+	margin: 1em;
+	text-align: center;
+	color: #000000;
+	cursor: pointer;
+}
+
+.pwi_album_backlink{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.pwi_album img{
+	border: 0px solid #7F7F7F;
+}
+
+.pwi_photo{
+	float: left;
+	margin: 1em;
+	text-align: center;
+	border: 0px dotted white;
+}
+.pwi_photo img{
+	/*border: 0px solid #7F7F7F;*/
+	border: solid 1px #606060;
+}
+
+.pwi_photo a{
+	text-decoration: none;
+}
+
+.pwi_pager{
+	font-weight: bold;
+	color: #303030;
+	clear: both;
+}
+.pwi_prevpage, .pwi_nextpage, .pwi_pager_page, .pwi_pager_current{
+	text-decoration: none;
+	float: left;
+	margin: 5px;
+	color: #606060;
+}
+.pwi_prevpage, .pwi_nextpage, .pwi_pager_page{
+	cursor: pointer;
+}
+.link{
+	/*text-decoration: underline;*/
+	cursor: pointer;
+	color: #901010;
+}
+
+.pwi_pager_page:HOVER {color: #901010; }
+
+.pwi_pager_current{
+	text-decoration: none;
+	font-weight: bold;
+	color: #101010;
+}
+
+/* --------------------------------------------------------------------*/
+div.picasa{padding: 0px; margin-bottom: 1em; overflow: hidden;}
+
+div.picasa h2{border-bottom: solid 1px #606060; line-height: 20px; margin: 5px; padding: 0;}
+div.picasa h2 a {color: #151515;}
+div.picasa h2 a:HOVER{color: #901010; text-decoration: none;}
+div.picasa h2 span a{float: right; font-family: Helmet, Freesans, sans-serif; font-size: 15px; color: #303030;}
+
+.pwi_pager{font-size: 13px; line-height: 13px;}
+.pwi_prevpage, .pwi_nextpage {width: 13px; height: 13px;}
+.pwi_prevpage {background: url('leftarr.png') no-repeat;}
+.pwi_nextpage {background: url('rightarr.png') no-repeat;}
+.pwi_prevpage:HOVER {background: url('leftarr-hover.png') no-repeat;}
+.pwi_nextpage:HOVER {background: url('rightarr-hover.png') no-repeat;}
+.pwi_photo img{margin: 0 6px;}
