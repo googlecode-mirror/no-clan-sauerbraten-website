@@ -103,9 +103,9 @@ unset($query, $result, $row);
 	<!-- BEING SOCIAL -->
 	<?php
 	$social_title = 'NO CLAN';
-	$social_image = '<?php echo rurl();?>/images/NC-fb-100x100.jpg';
+	$social_image = rurl().'/images/NC-fb-100x100.jpg';
 	$social_description = 'No Clan: Sauerbraten Clan Since 2011';
-	$social_url = '<?php echo rurl();?>';
+	$social_url = rurl();
 	?>
 	<!-- FaceBook opengraph TAGS-->
 	<meta property="og:title" content="<?php echo $social_title;?>" />
@@ -218,7 +218,7 @@ unset($query, $result, $row);
 				<!-- SUMMARIES -->
 				<?php foreach ($arrPosts as $p) { 
 				$link = rurl().'/post/'.$p['idPost'].'/'.friendly_str($p['title']);
-				$shareURL = 'http://astrafo.dyndns.org/post/'.$p['idPost'].'/'.friendly_str($p['title']);
+				$shareURL = rurl().'/post/'.$p['idPost'].'/'.friendly_str($p['title']);
 				
 				$c = $p['n_comm'];
 				if ($c == 0) $num_comms = "No comments";
