@@ -1,6 +1,6 @@
 <div class="social" style="padding-bottom: 0.5em; height: 21px;">
 	<div class="gPlus" style="float: left;">
-		<g:plusone size="medium" href="<?php echo '<?php echo rurl();?>'?>"></g:plusone>
+		<g:plusone size="medium" href="<?php echo rurl();?>"></g:plusone>
 	</div>
 	
 	<div class="fBook" style="height: 24px; float: right; width: 100px;">
