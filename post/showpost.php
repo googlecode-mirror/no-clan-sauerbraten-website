@@ -151,9 +151,9 @@ else {
 	<!-- FACEBOOK LIKE -->
 	<?php
 	$social_title = 'NO CLAN';
-	$social_image = 'http://astrafo.dyndns.org/images/NC-fb-100x100.jpg';
+	$social_image = rurl().'/images/NC-fb-100x100.jpg';
 	$social_description = 'No Clan: Sauerbraten Clan Since 2011';
-	$social_url = 'http://astrafo.dyndns.org';
+	$social_url = rurl();
 	?>
 	<!-- FaceBook opengraph TAGS-->
 	<meta property="og:title" content="<?php echo $social_title;?>" />
