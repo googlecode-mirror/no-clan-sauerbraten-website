@@ -103,9 +103,9 @@ unset($query, $result, $row);
 	<!-- BEING SOCIAL -->
 	<?php
 	$social_title = 'NO CLAN';
-	$social_image = 'http://astrafo.dyndns.org/images/NC-fb-100x100.jpg';
+	$social_image = '<?php echo rurl();?>/images/NC-fb-100x100.jpg';
 	$social_description = 'No Clan: Sauerbraten Clan Since 2011';
-	$social_url = 'http://astrafo.dyndns.org';
+	$social_url = '<?php echo rurl();?>';
 	?>
 	<!-- FaceBook opengraph TAGS-->
 	<meta property="og:title" content="<?php echo $social_title;?>" />
@@ -179,7 +179,6 @@ unset($query, $result, $row);
 					
 					<div class="postSocial">
 					<?php $shareURL=rurl().'/post/'.$post['idPost'].'/'.friendly_str($post['title']);?>
-					<?php $shareURL='http://astrafo.dyndns.org/post/'.$post['idPost'].'/'.friendly_str($post['title']);?>
 
 						<div class="gPlus" style="float: left;">
 							<!-- G+ button -->
