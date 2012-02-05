@@ -303,7 +303,7 @@ div.break{height: 1px; border: solid 1px #999; margin: 1em;}
 #comments .comm{margin-bottom: 5px; background-image: url('art/white20.png'); overflow: hidden; border: solid 1px #909090; clear: both}
 #comments .comm div.info {background-image: url('art/black15.png'); padding: 1px 3px; line-height: 15px;}
 #comments .comm div.info span.comm_user{font-weight: bold; color: #ffffff;}
-#comments .comm div.info span.comm_date{float: right; font-size: 13px;}
+#comments .comm div.info span.comm_date{float: right; font-size: 13px; padding: 0;}
 #comments .comm div.info span.comm_options{float: right; padding: 1px;}
 #comments .comm div.info span.comm_options input{width: 13px; height: 13px; border: none; padding: 0px; background: none; margin: 1px 0 0 5px;}
 #comments .comm div.body img{margin: 0 10px 8px 5px; float: left;}

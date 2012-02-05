@@ -31,9 +31,11 @@ function isUser ( $user, $password, $db_connection)
 		    $query = "UPDATE users SET date_modified = '$d' WHERE idUser = '$id'";
 		    $result = mysql_query ($query, $db_connection);
 	        
-		    // & return the userArray without slashes
-		    $user_row = strip_slashes_arr($user_row);
-		    return $user_row;
+		    if(empty($error)){
+				// & return the userArray without slashes
+				$user_row = strip_slashes_arr($user_row);
+				return $user_row;
+			}else return false;
 		}
 		else return false;
 			

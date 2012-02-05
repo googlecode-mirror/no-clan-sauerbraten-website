@@ -20,6 +20,9 @@
 		$wanted_type=mysql_real_escape_string($_GET['filter']);
 	}
 	
+	/* * * * * * *
+	 * LIMBO
+	 * * * * * * */
 	//code for getting someone out of limbo
 	if (!empty($_GET['outlimbo'])) {
 		$idUser=mysql_real_escape_string($_GET['outlimbo']);
@@ -35,6 +38,24 @@
 		$r=mysql_query($q);
 	}
 	
+	/* * * * * * *
+	 * EDITORS
+	 * * * * * * */
+	//code for getting someone out of editors
+	if (!empty($_GET['outEditor'])) {
+		$idEditor=mysql_real_escape_string($_GET['outEditor']);
+		$q="DELETE FROM editors WHERE idEditor='$idEditor' LIMIT 1";
+		$r=mysql_query($q);
+	}	
+	
+	//code for placing someone into editors
+	if (!empty($_GET['inEditor'])) {
+		$idEditor=mysql_real_escape_string($_GET['inEditor']);
+		$q="INSERT INTO editors (idEditor) VALUES ('$idEditor')";
+		$r=mysql_query($q);
+	}
+	
+	
 	// UPDATE the user type
 	if ( !empty($_GET['idUser']) && !empty($_GET['type'])) {
 		$type=mysql_real_escape_string($_GET['type']);
@@ -44,7 +65,7 @@
 	}
 		
 	// Construct the query
-	$q='SELECT idUser, username, type, date_modified, limbo, limbo_reason FROM users';
+	$q='SELECT idUser, username, type, date_modified, limbo, limbo_reason, idEditor FROM users LEFT JOIN editors ON idUser = idEditor';
 	// if we have a 'filter by type', add that to the query
 	if (isset($wanted_type)) $q.=" WHERE type='$wanted_type'";
 	else $wanted_type='';
@@ -55,6 +76,7 @@
 			<tr><th>id</th><th>Username</th>
 				<th>Type   </th><th style="text-align: center;">Latest login</th>
 				<th>Limbo</th>
+				<th>Editor</th>
 			<?php
 			$i = 0;
 			while ($row=mysql_fetch_array($r)) {
@@ -67,7 +89,7 @@
 					<option value="admin"  <?php if ($type=='admin')  echo 'selected="selected"'; ?>>Admin</option>
 					<option value="member" <?php if ($type=='member') echo 'selected="selected"'; ?>>Clan member</option>
 					<option value="friend" <?php if ($type=='friend') echo 'selected="selected"'; ?>>NC friend</option>
-					<option value="user"   <?php if ($type=='user')   echo 'selected="selected"'; ?>>registered user</option> 
+					<option value="user"   <?php if ($type=='user')   echo 'selected="selected"'; ?>>Registered user</option> 
 								   
 				</select></td>
 				<td><?php echo htmlentities($date_modified); ?></td>
@@ -81,6 +103,26 @@
 						 echo "$isInButton <a href='javascript:outlimbo(\"$idUser\",\"$username\");'>$canOutButton</a>";
 					else echo "<a href='javascript:inlimbo(\"$idUser\",\"$username\");'>$canInButton</a> $isOutButton";
 					?>
+				</td>
+				<td>
+				<?php
+					$isEditorButton =	'<a href="javascript:outEditors(\''.$idUser.'\',\''.$username.'\');">
+											<div class="isEditorButton" title="No more edit for you"></div>
+										</a>';
+					$noEditorButton =	'<a href="javascript:inEditors(\''.$idUser.'\',\''.$username.'\');">
+											<div class="noEditorButton" title="Become an editor"></div>
+										</a>';
+					
+					if($type == 'admin'){
+						echo '<img src="images/isEditor.png" title="ADMIN"/>';
+					}
+					elseif(!empty($idEditor)){
+						echo $isEditorButton;
+					}
+					else{
+						echo $noEditorButton;
+					}
+				?>
 				</td>
 				</tr>
 				

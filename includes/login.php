@@ -64,8 +64,12 @@ function strtohex($string)
 				header("Location: $location");
 				die;
     		} else $arrUser=false;
-    	}else{ $error['userpass'] = 'User or password do not match.<br />
-									<span style="color: #c0c0c0;">If you forgot your username or password, please
-									<a href="/forgot-password.php"> click here.</a></span>'; }
+    	
+    	}elseif (empty($error['limbo'])){
+			
+			$error['userpass'] = 'User or password do not match.<br />
+			<span style="color: #c0c0c0;">If you forgot your username or password, please
+			<a href="/forgot-password.php"> click here.</a></span>';
+		}
     }
 ?>

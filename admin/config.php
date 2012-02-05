@@ -8,13 +8,13 @@ define( 'DB_USER', '*******');
 define( 'DB_PASS', '*******');
 
 // ENCRYPTERS
-define('SALT_1',  '********');
-define('SALT_2',   '*******)');
-define('HASH_KEY', '********');
+define('SALT_1',  '*******');
+define('SALT_2',   '*******');
+define('HASH_KEY', '*******');
 
 // CONSTANT VARIABLES FOR OFFICIAL EMAIL
-define('NOCLAN_EMAIL',  '********');
-define('NOCLAN_EMAIL_PASS',  '********');
+define('NOCLAN_EMAIL',  '*******');
+define('NOCLAN_EMAIL_PASS',  '*******');
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *  FUCKING MAGIC-QUOTES

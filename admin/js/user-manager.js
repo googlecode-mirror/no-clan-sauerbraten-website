@@ -67,6 +67,36 @@ function inlimbo(idUser, username) {
 	}
 }
 
+
+
+function outEditors(idEditor, username) {
+	<!-- Gets the user out of editors table. -->
+	<!-- but first get confirmation -->
+	user=username;
+    var answer = confirm("Kick " + user + " id=" + idEditor +  " from Editors?")
+    if (answer){
+		
+		//get (user) filter value to pass
+		filter=document.getElementById("type").value;
+		//send request
+		UserHandle.open("GET","users.php?filter="+filter+"&outEditors="+idEditor,true);
+		UserHandle.send();
+	}
+}
+
+function inEditors(idUser, username) {
+	<!-- Places the user into editors. -->
+	<!-- but first get confirmation -->
+    var answer = confirm("Place " + username + " id=" + idUser + " into Editors?");
+    if (answer){
+		//get (user) filter value to pass
+		filter=document.getElementById("type").value;
+		//send request
+		UserHandle.open("GET","users.php?filter="+filter+"&inEditors="+idUser,true);
+		UserHandle.send();
+	}
+}
+
 function UserFilter(UserType) {
 	<!-- AJAX. Show registered users with filter by user type (admin, member, friend, user). -->
     var filter=UserType;

@@ -46,6 +46,12 @@ div.canRedButton, div.canGreenButton{background: url('images/buttonGrey.png');}
 div.canGreenButton:HOVER{background: url('images/buttonGreenHover.png');}
 div.canRedButton:HOVER{background: url('images/buttonRedHover.png');}
 td.reason{ font-size: 13px; color: #901010; padding: 10px}
+
+div.isEditorButton, div.noEditorButton{width: 16px; height:16px;}
+div.isEditorButton{background: url('images/isEditor.png');}
+	div.isEditorButton:HOVER{background: url('images/editor_gray100.png');}
+div.noEditorButton{background: url('images/editor_gray50.png');}
+	div.noEditorButton:HOVER{background: url('images/isEditor.png');}
 </style>
 </head>
 
