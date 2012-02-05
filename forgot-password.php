@@ -13,6 +13,8 @@ require_once 'admin/functions.php';
 require_once 'admin/config.php';
 require_once 'admin/connect.php';
 require_once 'admin/isUser.php';
+// Send emails
+include_once rdir().'/admin/send_mail.php';
 
 // db connection
 $dbConn = connect_db();
@@ -72,14 +74,9 @@ if(!empty($_POST['email']))
 		$code = get_random_string().time().get_random_string();
 		$q="INSERT INTO pass_reset values (NULL, CURRENT_TIMESTAMP, '$email', '$code')";
 		if ($r=mysql_query($q, $dbConn)) {
-			$headers =  'From: No Clan <sauerbraten.no.clan@gmail.com>' . "\n"
-					   .'Reply-To: webmaster@example.com' . "\n"
-                       .'X-Mailer: PHP/' . phpversion() . "\n"
-			           .'MIME-Version: 1.0' . "\n"
-					   .'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
 			$to = strip_tags($email);
 		    $subject = "No Clan: Password reset request";
-			$link = rurl().'/'.htmlentities($_SERVER['PHP_SELF']).'?resetCode='.$code;
+			$link = rurl().htmlentities($_SERVER['PHP_SELF']).'?resetCode='.$code;
 		
 			$nc = rurl();
 			$body = trim("Hi $username!<br/>\n
@@ -99,11 +96,13 @@ if(!empty($_POST['email']))
 						<br />\n
 						See you soon.<br/>\n
 						No Clan - <a href='$nc'>$nc</a><br/>\n<br/>\n");
-			if (mail($to, $subject, $body, $headers, '-f sauerbraten.no.clan@gmail.com')){
-			
+
+			if (send_mail($to, $subject, $body)){
+				
 				// Finish all
 				$request='sent';
-			} else $error['bademail']='We couldn\'t send the email.';
+				
+			} else $error['bademail']='We are sorry, we couldn\'t send the email. Please contact the administration.';
 
 		} else $error['mysql']='Request failed. Have you already requested a password reset?';
 	}
@@ -131,7 +130,7 @@ if (!empty($_POST['newPassword'])) {
 	if ((!empty($_POST['pass1'])) && (!empty($_POST['pass2'])) && ($_POST['pass1']==$_POST['pass2'])){
         if(strlen($_POST['pass1']) < 8){ $error['shortpass'] = 'Pick a longer password, please. At least 8 characters.'; }
 		else{
-			$reg_pass = get_pass($_POST['reg_pass']); // We have password;
+			$newPass = get_pass($_POST['pass1']); // We have password
 		}
 	} else {
 		$error['pass']='You must select a new password and fill it
