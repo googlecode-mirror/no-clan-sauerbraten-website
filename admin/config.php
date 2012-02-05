@@ -2,15 +2,15 @@
 date_default_timezone_set('Europe/Berlin');
 
 // CONSTANT VARIABLES FOR DATABASE CONNECTION
-define( 'DB_SERVER', 'localhost' );
-define( 'DB_NAME', 'noclan');
-define( 'DB_USER', 'noclan');
-define( 'DB_PASS', 'JwnPDXSX49QxvYvQ');
+define( 'DB_SERVER', '*******' );
+define( 'DB_NAME', '*******');
+define( 'DB_USER', '*******');
+define( 'DB_PASS', '*******');
 
 // ENCRYPTERS
-define('SALT_1',  'ga# 1');
-define('SALT_2',   '/g02)');
-define('HASH_KEY', 'z42!_2#');
+define('SALT_1',  '*******');
+define('SALT_2',   '*******');
+define('HASH_KEY', '*******');
 
 // CONSTANT VARIABLES FOR OFFICIAL EMAIL
 define('NOCLAN_EMAIL',  '*******');
