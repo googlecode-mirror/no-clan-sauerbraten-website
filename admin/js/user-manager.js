@@ -73,26 +73,26 @@ function outEditors(idEditor, username) {
 	<!-- Gets the user out of editors table. -->
 	<!-- but first get confirmation -->
 	user=username;
-    var answer = confirm("Kick " + user + " id=" + idEditor +  " from Editors?")
+    var answer = confirm("Remove " + user + " from Editors?")
     if (answer){
 		
 		//get (user) filter value to pass
 		filter=document.getElementById("type").value;
 		//send request
-		UserHandle.open("GET","users.php?filter="+filter+"&outEditors="+idEditor,true);
+		UserHandle.open("GET","users.php?filter="+filter+"&outEditor="+idEditor,true);
 		UserHandle.send();
 	}
 }
 
 function inEditors(idUser, username) {
-	<!-- Places the user into editors. -->
+	<!-- Places the user into editor's. -->
 	<!-- but first get confirmation -->
-    var answer = confirm("Place " + username + " id=" + idUser + " into Editors?");
+    var answer = confirm("Place " + username + " into Editors?");
     if (answer){
 		//get (user) filter value to pass
 		filter=document.getElementById("type").value;
 		//send request
-		UserHandle.open("GET","users.php?filter="+filter+"&inEditors="+idUser,true);
+		UserHandle.open("GET","users.php?filter="+filter+"&inEditor="+idUser,true);
 		UserHandle.send();
 	}
 }

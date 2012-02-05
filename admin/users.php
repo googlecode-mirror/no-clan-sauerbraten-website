@@ -4,7 +4,6 @@
 	require_once 'config.php';
 	require_once 'connect.php';
 	require_once 'isUser.php';
-
 	// db connection
 	$dbConn = connect_db();
 
