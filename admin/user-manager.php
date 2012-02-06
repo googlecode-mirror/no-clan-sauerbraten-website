@@ -88,15 +88,6 @@ div.noEditorButton{background: url('images/editor_gray50.png');}
 
 		        <div id="main">
 					
-						<!-- Filter by user type -->
-						<p>Filter users: <select name="type" id="type" onchange="UserFilter(this.value)">
-							<option value="All"   >Everyone			</option>
-							<option value="admin" >Admins			</option>
-							<option value="member">Clan Members		</option>
-							<option value="friend">Friends			</option>
-							<option value="user"  >Registered Users	</option>
-						</select></p>
-						
 						<!-- Users list -->
 						<div id='users'></div>
 						

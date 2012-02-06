@@ -38,6 +38,14 @@
 	}
 	
 	/* * * * * * *
+	 * INFO 
+	 * * * * * * */
+	if (!empty($_GET['info'])) {
+		if ($_GET['info']=='login') $info='date_modified';
+		if ($_GET['info']=='registered') $info='date_created';
+	} else $info='date_modified';
+	
+	/* * * * * * *
 	 * EDITORS
 	 * * * * * * */
 	//code for getting someone out of editors
@@ -64,26 +72,42 @@
 	}
 		
 	// Construct the query
-	$q='SELECT idUser, username, type, date_modified, limbo, limbo_reason, idEditor FROM users LEFT JOIN editors ON idUser = idEditor';
+	$q='SELECT idUser, username, type, '.$info.', limbo, limbo_reason, idEditor FROM users LEFT JOIN editors ON idUser = idEditor';
 	// if we have a 'filter by type', add that to the query
-	if (isset($wanted_type)) $q.=" WHERE type='$wanted_type'";
+	if (isset($wanted_type)) {
+		//if members' list was requested, show the admins as well.
+		if ($wanted_type=='member') $q.=' WHERE type=\'admin\' OR type=\'member\'';
+		else $q.=" WHERE type='$wanted_type'";
+	}
 	else $wanted_type='';
 	$q.=' ORDER BY idUser';
 		
 	if ($r=mysql_query($q, $dbConn)) { ?>
 		<p><table id="User list" style="width: 100%;">
-			<tr><th>id</th><th>Username</th>
-				<th>Type   </th><th style="text-align: center;">Latest login</th>
-				<th>Limbo</th>
-				<th>Editor</th>
+			<tr><th style="text-align: center;">#</th><th>Username</th>
+				<th style="text-align: center;"><select name="type" id="type" onchange="UserFilter(this.value)">
+							<option value="All"   <?php if ($wanted_type=='All') echo 'selected="selected"';?>>Everyone			</option>
+							<option value="admin" <?php if ($wanted_type=='admin') echo 'selected="selected"';?>>Admins			</option>
+							<option value="member"<?php if ($wanted_type=='member') echo 'selected="selected"';?>>Clan Members		</option>
+							<option value="friend"<?php if ($wanted_type=='friend') echo 'selected="selected"';?>>Friends			</option>
+							<option value="user"  <?php if ($wanted_type=='user') echo 'selected="selected"';?>>Registered Users	</option>
+						</select></th>
+				<th style="text-align: center;">
+					<select name="UserInfo" id="UserInfo" onchange="javascript: UserInfo(this)">
+						<option value="registered" <?php if ($info=='date_created')  echo 'selected="selected"'; ?>>Registration</option>
+						<option value="login" <?php if ($info=='date_modified')  echo 'selected="selected"'; ?>>Latest login</option>
+					</select>
+				</th>
+				<th style="text-align: center;">Limbo</th>
+				<th style="text-align: center;">Editor</th>
 			<?php
-			$i = 0;
+			$i = 1;
 			while ($row=mysql_fetch_array($r)) {
 				extract($row); ?>
-			    <tr <?php if ($i%2==0) echo 'class="i"';?>><td style="text-align: center;"><?php echo $idUser;   ?></td>
+			    <tr <?php if ($i%2==0) echo 'class="i"';?>><td style="text-align: center;"><?php echo $i;   ?></td>
 								
 				<td style="text-align: left;"><?php echo htmlentities($username); ?></td>
-				<td><select name='<?php echo htmlentities($username); ?>' id='<?php echo $idUser; ?>'  onchange="javascript: UpdateUser(this);">
+				<td style="text-align: center;"><select name='<?php echo htmlentities($username); ?>' id='<?php echo $idUser; ?>'  onchange="javascript: UpdateUser(this);">
 							   
 					<option value="admin"  <?php if ($type=='admin')  echo 'selected="selected"'; ?>>Admin</option>
 					<option value="member" <?php if ($type=='member') echo 'selected="selected"'; ?>>Clan member</option>
@@ -91,7 +115,12 @@
 					<option value="user"   <?php if ($type=='user')   echo 'selected="selected"'; ?>>Registered user</option> 
 								   
 				</select></td>
-				<td><?php echo htmlentities($date_modified); ?></td>
+				<td style="text-align: center;">
+					<?php
+						if (isset($date_created)) echo htmlentities($date_created);
+						if (isset($date_modified)) echo htmlentities($date_modified);
+					?>
+				</td>
 				<td>
 					<?php
 					$isInButton = '<div class="redButton">&nbsp;</div>';
