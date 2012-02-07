@@ -10,7 +10,7 @@ function isUser ( $user, $password, $db_connection)
 	if ($user =='' || $password=='') return false;
 		
 	// Check for that user on the db
-	$query = "SELECT idUser, username, pass, type, DATE_FORMAT (date_created, '%b %y') AS date_created, country, email, limbo, limbo_reason FROM users WHERE username='$user'";
+	$query = "SELECT idUser, username, pass, type, idEditor, DATE_FORMAT (date_created, '%b %y') AS date_created, country, email, limbo, limbo_reason FROM users LEFT JOIN editors ON users.idUser = editors.idEditor WHERE username='$user'";
 	$result = mysql_query ($query, $db_connection);
 	
 	if (!empty ($result)){

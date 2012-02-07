@@ -34,7 +34,50 @@ if (!empty($_GET['done'])){
 		case 'postAdd':
 			$get_info = 'Your new post has been added.';
 			break;
+		
+		case 'prePostEdit':
+			$get_info = 'Post has been edited and sent back to it\'s owner.';
+			break;
+		
+		case 'postPublished':
+			$get_info = 'The post has been published. A message has been sent to the post owner.';
+			break;
 	}
+}
+
+// PUBLISH
+if (!empty($_GET['publish']))
+{
+    $id = mysql_real_escape_string($_GET['publish']);
+	// CHECK THE DATE: if date_pub < today -> date_pub = now | Get the title and the user id to send a message.
+	$query = "SELECT date_pub, title, userId FROM prePosts WHERE prePosts.idPost = $id";
+	$result = mysql_query($query, $dbConn);
+	$row = mysql_fetch_assoc ($result);
+	
+	$dp = $row['date_pub'];
+	if ( time() > strtotime($dp)){ $date_pub = 'CURRENT_TIMESTAMP'; } else { $date_pub = 'date_pub'; }
+	
+	// INSERT on posts from PrePosts
+	$query = "INSERT INTO posts (title, userId, postFor, summary, summary_img, body, date_pub, tags, imgs) SELECT title, userId, postFor, summary, summary_img, body, $date_pub, tags, imgs FROM prePosts WHERE prePosts.idPost = $id;";
+	$result = mysql_query($query, $dbConn);
+	
+	// DELETE from prePosts
+	$query = "DELETE FROM prePosts WHERE idPost = '$id' LIMIT 1";
+	$result = mysql_query($query, $dbConn);
+	
+	// SEND A MESSAGE TO THE OWNER
+	$to = $row['userId'];
+	$from = $arrUser['idUser'];
+	$time = 'CURRENT_TIMESTAMP';
+	$subject = 'Your post has been published!';
+	$title = $row['title'];
+	$message = 'Hi!<br/>Your post <strong><em>'.$title.'</em></strong> has been published.<br/><br/>Good job mate!';
+	$query = "INSERT into messages values (NULL, '$to', '$from', CURRENT_TIMESTAMP, '$subject', '$message', '0')";
+	$result = mysql_query($query, $dbConn);
+	
+	header( 'Location: index.php?done=postPublished' );
+	die;
+		  
 }
 
 // DELETE
@@ -67,6 +110,14 @@ if (!empty($_GET['del']))
     
     header( "Location: index.php?done=postDel" );
     die;
+}
+
+// Get the editors posts
+$arrPrePosts = array();
+$query = "SELECT idPost, userId, username, title, date_pub, DATE_FORMAT(date_pub, '%b %d, %Y') AS human_date_pub FROM prePosts INNER JOIN users ON users.idUser = prePosts.userId WHERE prePosts.finished = 'yes' ORDER BY date_pub DESC";
+if ($result = mysql_query ($query, $dbConn)){
+	while ($row = mysql_fetch_assoc ($result)) array_push($arrPrePosts, $row);
+	unset ($query, $result, $row);
 }
 
 // Get the admin list of posts in $arrPosts
@@ -124,8 +175,30 @@ $page_title = "NC: ADMIN ZONE" // used at includes/head.inc.php
 				<div class="get_info"><p><?php canput($get_info);?></p></div>
 			<?php }?>
 			
+			<?php if(!empty($arrPrePosts)){?>
+				<h2>Posts pending to be published</h2>
+				<table style="width:100%;">
+					<tr>
+					<th>#</th>
+					<th>Editor</th>
+					<th>Title</th>
+					<th>action</th>
+					</tr>
+				<?php $i = 0; foreach ($arrPrePosts as $p) { ?>
+					<tr <?php if ($i%2==0) echo 'class="i" ';?>>
+					<td><?php echo $p['idPost']; ?></td>
+					<td><a class="fancy" href="<?php echo rurl().'/user/show_userinfo.php?id='.$p['userId']?>"><?php echo $p['username']?></a></td>
+					<td><em><a class="fancy" href="<?php echo rurl().'/edit/showpost.php?idPost='.$p['idPost'];?>"><?php echo $p['title'];?></a></em></td>
+					<td>
+						<a href="<?php echo rurl();?>/edit/post-manager.php?idPost=<? echo $p['idPost']; ?>">EDIT</a>
+						<a href="<?php echo rurl();?>/admin/index.php?publish=<? echo $p['idPost']; ?>">PUBLISH</a>
+					</td>
+					</tr>
+				<?php $i++; }?>
+				</table>
+			<?php }?>
+			
 			<h2><?php echo $arrUser['username']?>'s Posts</h2>
-
 			<table style="width:100%;">
 			    <tr>
 				<th>id</th>
