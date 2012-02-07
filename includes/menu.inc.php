@@ -7,12 +7,14 @@
         //array($u.'/forum.php',   	'FORUM'),
         array($u.'/members.php',    'MEMBERS'),
         array($u.'/gallery/',    	'GALLERY'),
-        array($u.'/contact.php', 	'CONTACT')
+        array($u.'/contact.php', 	'CONTACT'),
     
     );
     
     if (!empty($arrUser) && $arrUser['type'] == 'admin')
         array_push($menu_items, array($u.'/admin', 'ADMIN'));
+	if (!empty($arrUser) && $arrUser['idEditor'] == $arrUser['idUser'])
+        array_push($menu_items, array($u.'/edit', 'MyPOSTS'));
     
     $I_am_at = explode('?', "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
     foreach ($menu_items as $item){
