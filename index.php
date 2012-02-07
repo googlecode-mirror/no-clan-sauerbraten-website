@@ -66,11 +66,11 @@ if ($page == 1)
 {
 	if (!empty($arrUser) && $arrUser['type'] != 'user') {
 		// for members and friends
-		$query = "SELECT idPost, title, date_pub, posts.userId, summary, summary_img, body, username, COUNT(idComment) AS numc FROM posts INNER JOIN users ON posts.userId = users.idUser LEFT JOIN comments ON comments.postId = posts.idPost GROUP BY idPost HAVING date_pub <= CURRENT_TIMESTAMP ORDER BY date_pub DESC LIMIT 0,1";
+		$query = "SELECT idPost, title, postFor, date_pub, posts.userId, summary, summary_img, body, username, COUNT(idComment) AS numc FROM posts INNER JOIN users ON posts.userId = users.idUser LEFT JOIN comments ON comments.postId = posts.idPost GROUP BY idPost HAVING date_pub <= CURRENT_TIMESTAMP ORDER BY date_pub DESC LIMIT 0,1";
 		//$query = "SELECT idPost, title, date_pub, posts.userId, body, username, (SELECT COUNT(idComment) FROM comments WHERE comments.postId = idPost) AS numc FROM posts INNER JOIN users ON posts.userId = users.idUser WHERE date_pub <= CURRENT_TIMESTAMP ORDER BY date_pub DESC LIMIT 0,1";
 	} else {
 		// for all
-		$query = "SELECT idPost, title, date_pub, posts.userId, postFor, summary, summary_img, body, username, COUNT(idComment) AS numc FROM posts INNER JOIN users ON posts.userId = users.idUser LEFT JOIN comments ON comments.postId = posts.idPost GROUP BY idPost HAVING date_pub <= CURRENT_TIMESTAMP AND posts.postFor = 'all' ORDER BY date_pub DESC LIMIT 0,1";
+		$query = "SELECT idPost, title,  postFor, date_pub, posts.userId, summary, summary_img, body, username, COUNT(idComment) AS numc FROM posts INNER JOIN users ON posts.userId = users.idUser LEFT JOIN comments ON comments.postId = posts.idPost GROUP BY idPost HAVING date_pub <= CURRENT_TIMESTAMP AND posts.postFor = 'all' ORDER BY date_pub DESC LIMIT 0,1";
 	}
 	$result = mysql_query($query, $dbConn);
 	$post = mysql_fetch_assoc($result);
@@ -176,18 +176,19 @@ unset($query, $result, $row);
 					
 					<br/><br/>
 
+				
 					
 					<div class="postSocial">
 					<?php $shareURL=rurl().'/post/'.$post['idPost'].'/'.friendly_str($post['title']);?>
-
+					
+					
+					<?php // SOCIAL BUTTONS ARE ONLY FOR PUBLIC POSTS
+					if ($post['postFor'] == 'all'){?>
 						<div class="gPlus" style="float: left;">
-							<!-- G+ button -->
 							<g:plusone href="<?php echo $shareURL;?>" size="medium" count="box"></g:plusone>
-							<!-- /G+ button -->
 						</div>
 												
-						<div class="fBook" style="float: right;">
-							<?php
+						<div class="fBook" style="float: right;"><?php
 							$fb_title=urlencode($post['title']);
 							$fb_url=$shareURL;
 							$fb_summary=urlencode(strip_tags($post['summary']));
@@ -198,16 +199,14 @@ unset($query, $result, $row);
 							?>
 							<a onClick="window.open('http://www.facebook.com/sharer.php?s=100&amp;p[title]=<?php echo $fb_title;?>&amp;p[summary]=<?php echo $fb_summary;?>&amp;p[url]=<?php echo $fb_url; ?>&amp;&amp;p[images][0]=<?php echo $fb_image;?>','sharer','toolbar=0,status=0,width=548,height=325');" href="javascript: void(0)"><?php echo $FBimgCode;?></a>
 						</div>
-						
+					<?php } // END OF SOCIAL BUTTONS ARE ONLY FOR PUBLIC POSTS?>
+					
 						<!-- Read all link -->
 						<div style="text-align: center;">
 							<a style="" href="<?php echo $shareURL;?>">&bull; Read the whole post and comments &bull;</a>
 						</div>
 						<!-- /Read all link -->
 					</div>
-					
-					
-						
 					
 				</div>
 
@@ -246,6 +245,7 @@ unset($query, $result, $row);
 					
 					<div class="footer">
 
+					<?php if ($p['postFor'] == 'all'){?>
 						<div style="float: left; margin-top: 3px;">
 							<!-- G+ button -->
 								<g:plusone href="<?php echo $shareURL;?>" size="small" count="false"></g:plusone>
@@ -262,6 +262,7 @@ unset($query, $result, $row);
 							?>
 							<a onClick="window.open('http://www.facebook.com/sharer.php?s=100&amp;p[title]=<?php echo $fb_title;?>&amp;p[summary]=<?php echo $fb_summary;?>&amp;p[url]=<?php echo $fb_url; ?>&amp;&amp;p[images][0]=<?php echo $fb_image;?>','sharer','toolbar=0,status=0,width=548,height=325');" href="javascript: void(0)"><?php echo $FBimgCode;?></a>
 						</div>
+					<?php }?>
 						
 						<?php echo $num_comms;?> &bull; <a href="<?php echo $link;?>" title="<?php echo $p['title']?>">Read more</a>
 						

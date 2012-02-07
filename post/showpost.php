@@ -200,6 +200,7 @@ else {
                         </p>                       
                         <div class="content"><?php canput($p_body, 'no body');?></div>
                         
+                        <?php if ($p_postFor == 'all'){?>
                         <div class="postSocial">
 							<?php $shareURL = 'http://astrafo.dyndns.org/post/'.$p_idPost.'/'.friendly_str($p_title);?>
 							<!-- G+ items -->
@@ -222,6 +223,7 @@ else {
 								<a onClick="window.open('http://www.facebook.com/sharer.php?s=100&amp;p[title]=<?php echo $fb_title;?>&amp;p[summary]=<?php echo $fb_summary;?>&amp;p[url]=<?php echo $fb_url; ?>&amp;&amp;p[images][0]=<?php echo $fb_image;?>','sharer','toolbar=0,status=0,width=548,height=325');" href="javascript: void(0)"><?php echo $FBimgCode;?></a>
 							</div>
 						</div>
+						<?php }?>
 						
                     </div>
                     <!-- /ARTICLE -->

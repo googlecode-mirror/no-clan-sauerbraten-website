@@ -176,6 +176,10 @@ $page_title = "NC image manager";
 		Event.observe( window, 'load', function() {new Cropper.ImgWithPreview('testImage',{minWidth: minX,minHeight: minY,ratioDim: {x: laX, y: laY},displayOnInit: true,onEndCrop: onEndCrop,previewWrap: 'previewResumen'});});
 	</script>
 	
+	<style type="text/css">
+		input[type="submit"] { margin-top: 1em; padding: 0.5em;}
+	</style>
+	
 </head>
 
 <body style="padding: 20px; background: #404040;">
@@ -186,33 +190,35 @@ $page_title = "NC image manager";
 			$images = glob($path.'/{'.$imgs.'*.jpg}', GLOB_BRACE);
 			$i = 1;
 			
-			if (!empty($images)){ echo "<h2>Uploaded images</h2>"; }
-
-			foreach ($images as $image){?>
-				<div style="clear: both; margin-bottom: 0.5em; overflow:hidden;">
-					<img style="max-height: 100px; float: left; margin-right: 0.5em;" src="<?php echo $image;?>"/>
-					<?php $tmp = getimagesize($image); echo $tmp[0].'x'.$tmp[1].' p&iacute;xeles';?>
-					<p><?php echo rurl()."/data/images/posts/".$dirImgs.'/'.pathinfo($image, 2);?></p>
-					<a href="<?php echo rurl();?>/edit/image-manager.php?dirImgs=<?php echo $dirImgs?>&imgs=<?php echo $imgs?>&deleteImg=<?php echo $image;?>" style="color: red;">[DELETE]</a>
+			if (!empty($images)){?>
+				<div style="padding: 0.5em; background-color: #aaa">
+				<h2>Uploaded images</h2>
+				<?php foreach ($images as $image){?>
+					<div style="clear: both; margin-bottom: 0.5em; overflow:hidden;">
+						<img style="max-height: 100px; float: left; margin-right: 0.5em;" src="<?php echo $image;?>"/>
+						<?php $tmp = getimagesize($image); echo $tmp[0].'x'.$tmp[1].' p&iacute;xeles';?>
+						<p><?php echo rurl()."/data/images/posts/".$dirImgs.'/'.pathinfo($image, 2);?></p>
+						<a href="<?php echo rurl();?>/edit/image-manager.php?dirImgs=<?php echo $dirImgs?>&imgs=<?php echo $imgs?>&deleteImg=<?php echo $image;?>" style="color: red;">[DELETE]</a>
+					</div>
+				<?php }?>
 				</div>
 			<?php }?>
 
-	
-		<h2>Upload an image</h2>
 		<?php if (!empty($error)){?>
 			<div class="error">
 			<?php foreach ($error as $e){echo '<p>'.$e.'</p>';}?>
 			</div>
 		<?php }?>
 		
-		
-		<form action="<?php echo rurl();?>/edit/image-manager.php?dirImgs=<?php echo $dirImgs?>&imgs=<?php echo $imgs?>" method="post" enctype="multipart/form-data">
+		<?php if( empty($_POST['uploadSummary']) && empty($_POST['uploadArticle'])) {?>
+		<h1><?php if (empty($images)){ echo 'Upload an image'; } else { echo 'Upload another image';}?></h1>
+		<form action="<?php echo rurl();?>/edit/image-manager.php?dirImgs=<?php echo $dirImgs?>&imgs=<?php echo $imgs?>" method="post" enctype="multipart/form-data" name="f">
 			<label for="file">JPG or PNG < 5Mb</label><br/>
-			<input type="file" name="file"/><br/>
-			<input type="submit" name="uploadSummary" value="UPLOAD FOR SUMMARY" class="submit" id="cargaRes"/>
-			<input type="submit" name="uploadArticle" value="UPLOAD FOR ARTICLE" class="submit" id="cargaImg"/>
+			<input type="file" name="file" onchange="javascript:document.f.uploadSummary.disabled=false;document.f.uploadArticle.disabled=false"/><br/>
+			<input type="submit" name="uploadSummary" value="UPLOAD FOR SUMMARY" class="submit" id="cargaRes" disabled="disabled" />
+			<input type="submit" name="uploadArticle" value="UPLOAD FOR ARTICLE" class="submit" id="cargaImg" disabled="disabled"/>
 		</form>
-
+		<?php }?>
 		
 
 		<?php if( (!empty($_POST['uploadSummary']) || !empty($_POST['uploadArticle'])) && empty($error) ){?>
@@ -229,7 +235,9 @@ $page_title = "NC image manager";
 
 						<div id="testWrap">
 							<?php if(!empty($_POST['uploadArticle'])){?>
-								<p>Clic&amp;drag to select the zone to apply cropping</p>
+								<h1>Clic&amp;drag to select the zone and crop the image</h1>
+							<?php }else{?>
+								<h1>Select and resize the area for the Summary image</h1>
 							<?php }?>
 							<img src="<?php echo $dirTmpUser.'/'.$imgs.'.jpg'?>" alt="test image" id="testImage" />
 						</div>
