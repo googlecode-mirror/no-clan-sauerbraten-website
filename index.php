@@ -244,28 +244,7 @@ unset($query, $result, $row);
 					<div class="content"><?php echo $p['summary']?></div>
 					
 					<div class="footer">
-
-					<?php if ($p['postFor'] == 'all'){?>
-						<div style="float: left; margin-top: 3px;">
-							<!-- G+ button -->
-								<g:plusone href="<?php echo $shareURL;?>" size="small" count="false"></g:plusone>
-							<!-- FB Share -->
-						
-							<?php
-							$fb_title=urlencode($p['title']);
-							$fb_url=$shareURL;
-							$fb_summary=urlencode(strip_tags($p['summary']));
-							if(!empty($p['summary_img']))
-								$fb_image=urlencode($p['summary_img']);
-								else $fb_image=urlencode(rurl().'/images/NC-fb-100x100.jpg');
-							$FBimgCode = '<img title="share on Facebook" alt="share on Facebook" src="'.rurl().'/images/fbShare_15.png" style="border: none;"/>';
-							?>
-							<a onClick="window.open('http://www.facebook.com/sharer.php?s=100&amp;p[title]=<?php echo $fb_title;?>&amp;p[summary]=<?php echo $fb_summary;?>&amp;p[url]=<?php echo $fb_url; ?>&amp;&amp;p[images][0]=<?php echo $fb_image;?>','sharer','toolbar=0,status=0,width=548,height=325');" href="javascript: void(0)"><?php echo $FBimgCode;?></a>
-						</div>
-					<?php }?>
-						
 						<?php echo $num_comms;?> &bull; <a href="<?php echo $link;?>" title="<?php echo $p['title']?>">Read more</a>
-						
 					</div>
 				</div>
 				<?php } ?>
