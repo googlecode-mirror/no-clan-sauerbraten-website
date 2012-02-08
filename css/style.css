@@ -442,4 +442,4 @@ div.prev{float: left;}
 #footer p {text-align: center; margin: 0; padding: 0;}
 
 /* SOCIAL BUTTONS */
-div.postSocial{background: url('art/white20.png'); padding: 5px; margin: 1em 0; overflow: hidden;}
+div.postSocial{background: url('art/white20.png'); padding: 5px; margin: 1em 0; overflow: hidden; clear: both;}

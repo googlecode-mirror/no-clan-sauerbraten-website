@@ -272,7 +272,7 @@ else {
 										<form action="<?php echo rurl().'/post/'.$p_idPost.'/'.friendly_str($p_title);?>" method="post">
 											<input name="the_key" type="hidden" style="display: none;"value="<?php echo $c_idComment;?>" />
 											<input name="submitDelComm" style="<?php echo $submitDelete_style; ?>" type="submit" value="&nbsp;" title="Delete this comment" onclick="return confirm('Freedom of speech is more sacred than any faith... \n Please, confirm you want to delete the comment.');" />
-											<input name="submitEditComm" style="<?php echo $submitEdit_style; ?>" type="submit" value="&nbsp;" title="Edit this comment"/>
+											<input name="submitEditComm" style="<?php echo $submitEdit_style; ?>" type="submit" value="&nbsp;" title="Edit this comment" onclick="return confirm('Freedom of speech is more sacred than any faith... \n Put an explanation about the reason of this edition. \n And confirm you want to edit the comment.');" />
 										</form>
 									</span>
 								<?php } // if ( !empty($arrUser) )

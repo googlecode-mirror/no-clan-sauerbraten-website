@@ -170,8 +170,10 @@ $page_title = "NC: EDITOR ZONE" // used at includes/head.inc.php
 					?>
 				</td>
 				<td style="vertical-align: center;">
-				    <a href="<?php echo rurl();?>/edit/post-manager.php?idPost=<? echo $p['idPost']; ?>" title="EDIT"><img style="padding: 3px;" src="edit-icon.png"/></a>
-				    <a href="<?php echo rurl();?>/edit/index.php?del=<? echo $p['idPost']; ?>" onclick="return confirm('Confirm DELETE\nPost and comments will be removed.');" title="DELETE"><img style="padding: 3px;" src="delete-icon.png"/></a>
+				    <?php if ($p['finished'] != 'yes'){ ?>
+						<a href="<?php echo rurl();?>/edit/post-manager.php?idPost=<? echo $p['idPost']; ?>" title="EDIT"><img style="padding: 3px;" src="edit-icon.png"/></a>
+				    <?php } ?>
+				    <a href="<?php echo rurl();?>/edit/index.php?del=<? echo $p['idPost']; ?>" onclick="return confirm('Confirm DELETE\nPost will be removed.');" title="DELETE"><img style="padding: 3px;" src="delete-icon.png"/></a>
 				</td>
 			    </tr>
 			<?php $i++; }?>
