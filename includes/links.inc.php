@@ -7,7 +7,6 @@ $links = array(
 	array('F.A.Q.', rurl().'/faq.php', 'blue'), 
 	array('Hints &amp; tips', rurl().'/hints-tips.php', 'blue'), 
 	array('Nooblounge <font face=monospace>&lt;3</font>', 'http://www.nooblounge.net/', 'red'),
-	array('Sauerbraten World League', 'http://swl-cube2.org/', 'red'),
 	array('Cube 2: Sauerbraten', 'http://sauerbraten.org/', 'red')
 );
 ?>

@@ -70,7 +70,9 @@ $page_title = "NoClan: FAQ"; // used at 'includes/head.inc'
 					<h3>So, how do I become an NC? I want to join the clan!</h3>
 					<p>Well, the first question you should ask yourself is why join No Clan? If you want to join a clan, then No Clan is not for you. But if you really still want to join, you have to be highly competitive in the aspects of fragging, scoring and teamwork, helpful to others in the Sauerbraten community and friendly. If you think you've got what we need, play with us. But don't ask. We'll tell you.</p>
 					<h3>I'm thinking of cheating in order to join the clan, heheh!</h3>
-					<p>First of all, this is not a question! Second, we hate cheats. By cheating, you cheat your own life! We will notice you and chances are you'll get kicked off the server. If you're already in the clan, it's automatic ban from the team.</p>
+					<p>First of all, this is not a question! Second, we hate cheats. By cheating, you cheat your own life! We will notice you and chances are you'll get kicked off the server. If you're already in the clan, it's automatic ban from the team. Also, if we ever suspected you of cheating, even if you didn't, you can't join.</p>
+					<h3>So, I am confused. Can I join the clan or not?</h3>
+					<p>No.</p>
 					<p>For more information, browse the site, especially the <a href="<?php echo rurl();?>/about.php" title="NoClan Ethics">Philosophy section</a>.</p>
     				</div>
 				</div><!-- /main -->

@@ -15,8 +15,11 @@
 	} else { go_home(); }
 	
 	//filter for showing specific groups of users
-	if (!empty($_GET['filter']) && ($_GET['filter']!='All')) {
-		$wanted_type=mysql_real_escape_string($_GET['filter']);
+	if (!empty($_GET['filter'])) {
+		if ($_GET['filter']!='All') {
+			$wanted_type=mysql_real_escape_string($_GET['filter']);
+		}
+		$order=' ORDER BY type DESC';
 	}
 	
 	/* * * * * * *
@@ -41,8 +44,14 @@
 	 * INFO 
 	 * * * * * * */
 	if (!empty($_GET['info'])) {
-		if ($_GET['info']=='login') $info='date_modified';
-		if ($_GET['info']=='registered') $info='date_created';
+		if ($_GET['info']=='login') {
+			$info='date_modified';
+			$order=' ORDER BY date_modified DESC';
+		}
+		if ($_GET['info']=='registered') {
+			$info='date_created';
+			$order=' ORDER BY idUser';
+		}
 	} else $info='date_modified';
 	
 	/* * * * * * *
@@ -80,7 +89,9 @@
 		else $q.=" WHERE type='$wanted_type'";
 	}
 	else $wanted_type='';
-	$q.=' ORDER BY idUser';
+
+	if (!isset($order)) $order=' ORDER BY idUser';
+	$q.=$order;
 		
 	if ($r=mysql_query($q, $dbConn)) { ?>
 		<p><table id="User list" style="width: 100%;">

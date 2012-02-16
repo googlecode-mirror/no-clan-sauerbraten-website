@@ -155,6 +155,24 @@ $page_title = "NC: Post Manager"; // used at includes/head.inc.php
 
     <?php include rdir().'/admin/includes/fancy.inc.php';?>
     
+    <script type="text/javascript">
+		function ChangeOwner(formid) {
+			<!-- Pass the post ownership to another admin/editor -->
+			<!-- But first get confirmation -->
+			var x=document.getElementById("Owner") //easy reference
+			var i=x.selectedIndex
+			var username=x.options[i].text
+			var id=x.value
+			var answer = confirm("Pass ownership to " + username + "?")
+			
+			if (answer) {
+				// Change
+			} else {
+				// Reset Select to owner/user.
+				x.selectedIndex=0
+			}
+		}
+    </script>
     
     <style type="text/css">
 	#post_preview{
@@ -325,14 +343,27 @@ $page_title = "NC: Post Manager"; // used at includes/head.inc.php
 				<input name="dirImgs" type="hidden" value="<?php echo $dirImgs; ?>" />
 				<!-- /IMGS -->
 			    </div>
+			    <!-- CHANGE OWNER -->
+			    <?php
+					echo 'Owner: <select id="Owner" onchange="javascript: ChangeOwner(this);">';
+					$q='SELECT idUser, username FROM users LEFT JOIN editors ON idUser = idEditor WHERE (type = "admin" OR idUser = idEditor) AND idUser!="'.$userId.'"';
+					$r=mysql_query($q, $dbConn);
+					echo '<option>Me</option>';
+					while ($row=mysql_fetch_array($r)) {
+						extract($row);
+						echo '<option value="'.$idUser.'" ';
+						if ($idUser==$userId) echo ' selected="selected"';
+						echo '>'.$username.'</option>';
+					}
+					echo '</select>';
+			    ?>
 			    <!-- SUBMITS -->
+			    <input name="submitPreview" type="submit" value="PREVIEW" />
 			    <?php if(empty($_GET['idPost'])){?>
-				<input name="submitPreview" type="submit" value="PREVIEW" />
 				<input name="submitAdd" type="submit" value="ADD POST!" />
 			    <?php }else{?>
-				<input name="submitPreview" type="submit" value="PREVIEW" />
 				<input name="idPost" type="hidden" value="<?php canput($idPost);?>" />
-				<input class="submit" name="submitEdit" type="submit" value="EDIT!" onclick="return confirm('Confirm edition');"/>
+				<input class="submit" name="submitEdit" type="submit" value="SAVE CHANGES!" onclick="return confirm('Confirm save');"/>
 			    <?php }?>
 			</form>                
 			<!-- /ADD&EDIT FORM -->

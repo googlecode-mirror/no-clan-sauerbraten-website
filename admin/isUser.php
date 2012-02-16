@@ -34,7 +34,11 @@ function isUser ( $user, $password, $db_connection)
 			//Check if login IP is the same as current user IP.
 			$IP=$_SERVER['REMOTE_ADDR'];
 			if (isset($_SESSION['NC_IP'])) {
-				if ($_SESSION['NC_IP']!=$IP) return false;
+				if ($_SESSION['NC_IP']!=$IP) {
+					$error['IP']='Your IP appears to have changed. Please login again.';
+					session_destroy();
+					return false;
+				}
 			} else $_SESSION['NC_IP']=$IP; // <-- this only happens once, at login.
 
 		    if(empty($error)){
