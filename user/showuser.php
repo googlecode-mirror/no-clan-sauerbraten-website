@@ -98,7 +98,7 @@ $page_title = "NoClan: Home"; // used at 'includes/head.inc'
     					<img class="userpic" src="<?php echo $userpic?>"/>
     					<h1><?php echo $username?><span class="label">(<?php echo $type;?>)</span></h1>					
     					<h2><?php echo $first_name.' '.$last_name.' ('.$country.')';?></h2>
-    					<p><strong>&bull;NC&bull;</strong> member since <?php echo $date_created;?>.</p>
+    					<p>registered since <?php echo $date_created;?>.</p>
     					<p><?php echo $username?> is from <?php echo $location;?></p>
     					<p>
     						<span style="font-weight: bold; color: #606060">Homepage:</span>
