@@ -55,6 +55,7 @@ function strtohex($string)
 				// SESSION init
 				$_SESSION['NC_user'] = $arrUser['username'];
 				$_SESSION['NC_password'] = $arrUser['pass'];
+				$_SESSION['CSRF']=substr(md5(uniqid(rand( ), true)), 10, 15);
 			
 				// Location is the actual page except, obvioulsy, for the register page
 				if (preg_match("/register.php/i", $_SERVER['REQUEST_URI'])){

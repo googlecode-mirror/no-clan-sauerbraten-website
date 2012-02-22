@@ -88,6 +88,10 @@ div.noEditorButton{background: url('images/editor_gray50.png');}
 
 		        <div id="main">
 					
+						<?php
+							echo '<input type="hidden" id="rnd" name="rnd" value="'.$_SESSION['CSRF'].'" />';
+						?>
+						
 						<!-- Users list -->
 						<div id='users'></div>
 						

@@ -14,6 +14,12 @@
 		else $userId = $arrUser['idUser'];
 	} else { go_home(); }
 	
+	//CSRF prefention
+	if (!empty($_SESSION['CSRF'])) $csrf=$_SESSION['CSRF'];
+	else die('Possible CSRF #1 detected. Please retry or contact NC administration.');
+	if (!empty($_GET['rnd'])) $rnd=$_GET['rnd'];
+	else die('Possible CSRF #2 detected. Please retry or contact NC administration.');
+	
 	//filter for showing specific groups of users
 	if (!empty($_GET['filter'])) {
 		if ($_GET['filter']!='All') {
@@ -91,8 +97,7 @@
 	else $wanted_type='';
 
 	if (!isset($order)) $order=' ORDER BY idUser';
-	$q.=$order;
-		
+
 	if ($r=mysql_query($q, $dbConn)) { ?>
 		<p><table id="User list" style="width: 100%;">
 			<tr><th style="text-align: center;">#</th><th>Username</th>

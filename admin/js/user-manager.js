@@ -23,6 +23,7 @@ function UpdateUser(formid) {
 	<!-- When one user type value changes, it submits the form for that value alone. -->
 	<!-- but first get confirmation -->
 	
+    var rnd=document.getElementById("rnd").value
 	var username=formid.name
 	var idUser=formid.id
 	var type=formid.value
@@ -32,10 +33,10 @@ function UpdateUser(formid) {
 
     if (answer){
 		//send request
-		UserHandle.open("GET","/admin/users.php?idUser=" + idUser + "&type=" + type +"&filter="+filter,true)
+		UserHandle.open("GET","/admin/users.php?idUser=" + idUser + "&type=" + type +"&filter="+filter+"&rnd="+rnd,true)
 	} else {
 		//else just refresh (or type would be now displayed wrong)
-		UserHandle.open("GET","/admin/users.php?filter="+filter,true)
+		UserHandle.open("GET","/admin/users.php?filter="+filter+"&rnd="+rnd,true)
 	}
 		UserHandle.send()
 }
@@ -44,6 +45,7 @@ function outlimbo(idUser, username) {
 	<!-- Gets the user out of penalty box (Limbo). They can login now. -->
 	<!-- but first get confirmation -->
 	
+    var rnd=document.getElementById("rnd").value	
 	var user=username
 	var filter = document.getElementById('type').value
     var answer = confirm("Release " + user + " from Limbo?")
@@ -52,7 +54,7 @@ function outlimbo(idUser, username) {
 		//get (user) filter value to pass
 		filter=document.getElementById("type").value;
 		//send request
-		UserHandle.open("GET","users.php?filter="+filter+"&outlimbo="+idUser,true)
+		UserHandle.open("GET","users.php?filter="+filter+"&outlimbo="+idUser+"&rnd="+rnd,true)
 		UserHandle.send()
 	}
 }
@@ -61,6 +63,7 @@ function inlimbo(idUser, username) {
 	<!-- Places the user into penalty box (Limbo). They canNOT login now. -->
 	<!-- but first get confirmation -->
     
+    var rnd=document.getElementById("rnd").value
 	//get (user) filter value to pass
 	var filter=document.getElementById("type").value
     var answer = confirm("Place " + username + " into Limbo?");
@@ -68,7 +71,7 @@ function inlimbo(idUser, username) {
     if (answer){
 		var reason=prompt("You must enter a reason")
 		//send request
-		UserHandle.open("GET","users.php?filter="+filter+"&inlimbo="+idUser+"&reason="+reason,true)
+		UserHandle.open("GET","users.php?filter="+filter+"&inlimbo="+idUser+"&reason="+reason+"&rnd="+rnd,true)
 		UserHandle.send()
 	}
 }
@@ -76,11 +79,12 @@ function inlimbo(idUser, username) {
 function UserInfo(selectid) {
 	<!-- Changes info displayed in users table -->
 
+    var rnd=document.getElementById("rnd").value
 	//get (user) filter value to pass
 	var filter=document.getElementById("type").value
 	
 	//send request
-	UserHandle.open("GET","users.php?filter="+filter+"&info="+selectid.value,true)
+	UserHandle.open("GET","users.php?filter="+filter+"&info="+selectid.value+"&rnd="+rnd,true)
 	UserHandle.send()
 }
 
@@ -88,14 +92,15 @@ function outEditors(idEditor, username) {
 	<!-- Gets the user out of editors table. -->
 	<!-- but first get confirmation -->
 	
-	user=username;
+    var rnd=document.getElementById("rnd").value
+	var user=username;
     var answer = confirm("Remove " + user + " from Editors?")
 
     if (answer){
 		//get (user) filter value to pass
 		var filter=document.getElementById("type").value
 		//send request
-		UserHandle.open("GET","users.php?filter="+filter+"&outEditor="+idEditor,true)
+		UserHandle.open("GET","users.php?filter="+filter+"&outEditor="+idEditor+"&rnd="+rnd,true)
 		UserHandle.send()
 	}
 }
@@ -104,12 +109,13 @@ function inEditors(idUser, username) {
 	<!-- Places the user into editors. -->
 	<!-- but first get confirmation -->
     
+    var rnd=document.getElementById("rnd").value
     var answer = confirm("Place " + username + " into Editors?")
     if (answer){
 		//get (user) filter value to pass
 		var filter=document.getElementById("type").value
 		//send request
-		UserHandle.open("GET","users.php?filter="+filter+"&inEditor="+idUser,true)
+		UserHandle.open("GET","users.php?filter="+filter+"&inEditor="+idUser+"&rnd="+rnd,true)
 		UserHandle.send()
 	}
 }
@@ -118,8 +124,9 @@ function UserFilter(UserType) {
 	<!-- AJAX. Show registered users with filter by user type (admin, member, friend, user). -->
     
     var filter=UserType
+    var rnd=document.getElementById("rnd").value
     
 	//send request
-	UserHandle.open("GET","users.php?filter="+filter,true)
+	UserHandle.open("GET","users.php?filter="+filter+"&rnd="+rnd,true)
 	UserHandle.send()
 }
