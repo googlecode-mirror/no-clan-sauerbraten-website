@@ -169,7 +169,7 @@ else {
 <!-- G+ TAGS-->
 <span itemprop="name" style="display: none"><?php echo $p_title;?></span>
 <span itemprop="description" style="display: none"><?php echo $p_summary;?></span>
-<img itemprop="image" src="<?php if (!empty($p_summary_img)) echo $p_summary_img; else echo 'http://astrafo.dyndns.org/images/NC-fb-100x100.jpg';?>" style="display: none"/>
+<img itemprop="image" src="<?php if (!empty($p_summary_img)) echo $p_summary_img; else echo rurl().'/images/NC-fb-100x100.jpg';?>" style="display: none"/>
 
 	<div id="wrapper">
 		<div id="container">
@@ -202,7 +202,7 @@ else {
                         
                         <?php if ($p_postFor == 'all'){?>
                         <div class="postSocial">
-							<?php $shareURL = 'http://astrafo.dyndns.org/post/'.$p_idPost.'/'.friendly_str($p_title);?>
+							<?php $shareURL = rurl().'/post/'.$p_idPost.'/'.friendly_str($p_title);?>
 							<!-- G+ items -->
 							<div class="gPlus" style="float: left;">
 								<!-- G+ button -->
