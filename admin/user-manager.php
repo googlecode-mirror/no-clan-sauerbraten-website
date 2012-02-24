@@ -89,6 +89,7 @@ div.noEditorButton{background: url('images/editor_gray50.png');}
 		        <div id="main">
 					
 						<?php
+							$_SESSION['CSRF']=substr(md5(uniqid(rand( ), true)), 10, 15);
 							echo '<input type="hidden" id="rnd" name="rnd" value="'.$_SESSION['CSRF'].'" />';
 						?>
 						

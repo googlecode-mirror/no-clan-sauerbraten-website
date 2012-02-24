@@ -22,22 +22,22 @@ $page_title = "NC: BACKUP DB" // used at includes/head.inc.php
 <?php
 				
     if (($_SERVER['REQUEST_METHOD']=='GET') && (isset($_GET['backup']))) {
-		$backupfile = '../data/tmp_data/noclan' . date("Y-m-d") . '.sql';
-		system("mysqldump -u$DB_USER -p$DB_PASS $DB_NAME > $backupfile");
+		$backupfile = rdir().'/data/tmp_data/noclan' . date("Y-m-d") . '.sql';
+		system("mysqldump -u".DB_USER." -p".DB_PASS." ".DB_NAME." > $backupfile");
 		system("gzip $backupfile");
 		$backupfile.='.gz';
 
 		// Mail the file
 		// Addresses during normal mode
-		$to = array('mail1@mail.com', 'mail2@mail.com');  
+		$to = explode(',',ADMIN_EMAILS);
 		$subject = 'noclan.nooblounge.net mysql backup';
 		$body = "This email contains the <strong>noclan.nooblounge.net</strong> mysql database backup.<br />\n"
 				."Date created: ". date("Y-m-d") ."<br />\n"
 				."Have a nice day!<br />\n<br />\n"
 				."<strong>The -NC- Team</strong>";
 		$att = $backupfile;
-		if (send_mail($to, $subject, $body, $att)) echo 'The backup email was successfully sent! '.$backupfile;
-		else echo 'There was an error in sending the backup email.';
+		if (send_mail($to, $subject, $body, $att)) $message = 'The backup email was successfully sent! '.$backupfile;
+		else $message = 'There was an error in sending the backup email.';
 
 		// Delete the file from your server
 		unlink($backupfile);
@@ -83,8 +83,14 @@ $page_title = "NC: BACKUP DB" // used at includes/head.inc.php
 		    <div><?php include rdir().'/admin/includes/sidepanel.inc.php';?></div></div><!-- /"sidepanel" -->
 
 		    <div id="main">
-			<a href="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>?backup=yes">Backup now!</a>
+				
+				<?php if (!empty($message)){ 
+					echo '<div class="get_info"><p>'.$message.'</p></div>';
+				}?>
+				
+				<a href="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>?backup=yes">Backup now!</a>
 		    </div><!-- /main -->
+		    
 	        </div><!-- /content-->
 	    
 	    <div id="footer"></div> <!-- /footer -->
