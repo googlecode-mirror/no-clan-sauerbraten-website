@@ -4,7 +4,7 @@
  *      Shows $n latest comments on posts.
  */
 
-$n = 5;
+$n = 10;
 echo "<h3>Latest comments</h3>";
 echo '<div id="last_comments">';
 
