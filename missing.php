@@ -74,6 +74,7 @@ $page_title = "NoClan: Home"; // used at 'includes/head.inc'
 			</div><!-- /content-->
 			
 			<div id="footer">
+				<?php include 'includes/footer.inc.php';?>
 			</div> <!-- /footer -->
 
 		</div><!-- /container -->

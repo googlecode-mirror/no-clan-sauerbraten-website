@@ -116,6 +116,7 @@ unset($query, $result, $row);
 	<meta property="fb:admins" content="100003397471644" />
 </head>
 
+<!-- Load javascript timers to update page -->
 <body <?php if (isset($arrUser)) echo "onload='StartUp()'"; ?>>
 
 <!-- G+ TAGS-->

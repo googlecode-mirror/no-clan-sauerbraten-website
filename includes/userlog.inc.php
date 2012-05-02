@@ -1,4 +1,4 @@
-<form action="" method="post" accept-charset="utf-8" id="userlog">
+<form action="<?php if (isset($_SERVER["REDIRECT_STATUS"]) && ($_SERVER["REDIRECT_STATUS"]==404)) echo '/index.php';?>" method="post" accept-charset="utf-8" id="userlog">
     <?php if (empty ($arrUser)){?>
         <input type="text" name="username" id="username" value="<?php if (!empty($username_form)) echo $username_form; else echo "username"?>" onclick="this.value='';this.style.color='#cccccc';"/>
         <input type="password" name="password" id="password" value="********" onclick="this.value='';this.style.color='#cccccc';"/>
