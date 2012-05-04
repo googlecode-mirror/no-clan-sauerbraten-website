@@ -11,7 +11,7 @@ function nc_error_handler ($e_number, $e_message, $e_file, $e_line,$e_vars) {
  // are we live? (0=development phase, 1=we're live)
  // 0 dumps errors on the screen
  // 1 shows generic message on screen, sends detailed message to email(s)
- $live=0; 
+ $live=1; 
  $contact_email1='sauerbraten.no.clan@gmail.com';
  $contact_email2='astrafo02@gmail.com';
  $message = "An error occurred in script '$e_file' on line $e_line:\n$e_message\n";
@@ -471,7 +471,7 @@ function get_the_flag($size = 24, $color = "red"){
 	/* Get the hmtl code for the flags icon Andreas made
 	 * Accepts 'red', 'blue' and gray color strings.
 	 */ 
-	return '<img src="'.rurl().'/images/sauer/'.$color.'flag'.$size.'.png"/>';
+	return '<img src="'.rurl().'/images/sauer/'.$color.'flag'.$size.'.png" alt="'.$color.' flag"/>';
 }
 
 function url_flag($size = 24, $color = "red"){

@@ -6,10 +6,10 @@
 <meta name="Description" content="No Clan: Sauerbraten Clan, since 2011"/>
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="All"/>
-<link rel="shortcut icon" href="<?php echo rurl();?>/favicon.ico">
+<link rel="shortcut icon" href="<?php echo rurl();?>/favicon.ico"/>
 
 <!-- STYLE -->
-<link href='http://fonts.googleapis.com/css?family=Orbitron:400,500,700,900|Aldrich|Gochi+Hand' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Orbitron:400,500,700,900|Aldrich|Gochi+Hand' rel='stylesheet' type='text/css'/>
 <link rel="stylesheet" type="text/css" href="css/default.css"/>
 <link rel="stylesheet" type="text/css" href="css/style.css"/>
 <!-- /style -->
@@ -18,9 +18,9 @@
 <?php include rdir().'/includes/fancy.inc.php'?>
 <!-- /Fancy -->
 
-<!-- private messages -->
-<?php if (isset($arrUser)) echo '<script language="javascript" type="text/javascript" src="'.rurl().'/js/ajax-general.js"></script>'; ?>
-<!-- /private messages -->
+<!-- timers & auto-updates -->
+<script language="javascript" type="text/javascript" src="/js/ajax-general.js"></script>
+<!-- /timers & auto-updates -->
 
 <!-- ANALYTICS -->
 <script type="text/javascript">
@@ -36,7 +36,7 @@
 <!-- /ANALYTICS -->
 
 <!-- RSS -->
-<link rel="alternate" title="No Clan: News" href="<?php echo rurl().'/rss/news.php';?>" type="application/rss+xml">
+<link rel="alternate" title="No Clan: News" href="<?php echo rurl().'/rss/news.php';?>" type="application/rss+xml"/>
 <!-- /RSS -->
 
 <!-- G+ -->

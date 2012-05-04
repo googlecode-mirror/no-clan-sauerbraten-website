@@ -36,7 +36,7 @@ $page_title = "NC: BACKUP DB" // used at includes/head.inc.php
 				."Have a nice day!<br />\n<br />\n"
 				."<strong>The -NC- Team</strong>";
 		$att = $backupfile;
-		if (send_mail($to, $subject, $body, $att)) $message = 'The backup email was successfully sent! '.$backupfile;
+		if (send_mail($to, $subject, $body, $att)) $message = 'The backup email was successfully sent! ';
 		else $message = 'There was an error in sending the backup email.';
 
 		// Delete the file from your server

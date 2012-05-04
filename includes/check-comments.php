@@ -1,7 +1,10 @@
 <?php
-	session_start ();
+	session_start();
+?>
+	<script>document.write("hello!")</script>
+<?php
+	require_once '../admin/config.php';
 	require_once '../admin/functions.php';
-	require_once rdir().'/admin/config.php';
 	require_once rdir().'/admin/connect.php';
 	require_once rdir().'/admin/isUser.php';
 

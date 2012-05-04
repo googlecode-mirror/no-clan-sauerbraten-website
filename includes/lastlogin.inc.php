@@ -37,7 +37,7 @@ if ($result = mysql_query ($query, $dbConn)) {
 
 				<?php if (isset($arrUser) && ($arrUser['type'] == 'member' || $arrUser['type'] == 'admin')){?>
 					<a class="fancy_mini_main"  href="<?php echo rurl();?>/messages/message.php?to=<?php echo $u;?>" title="<?php echo "Send a message to $u";?>">
-						<img style="float: right; border: none; margin: 0;" src="<?php echo rurl();?>/images/mail.png"/>
+						<img style="float: right; border: none; margin: 0;" src="<?php echo rurl();?>/images/mail.png" alt="message"/>
 					</a>
 				<?php }?>	
 				

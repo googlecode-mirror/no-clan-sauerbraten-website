@@ -1,8 +1,8 @@
 <?php
 session_start ();
 require_once 'admin/config.php';
-require_once 'admin/connect.php';
 require_once 'admin/functions.php';
+require_once 'admin/connect.php';
 require_once 'admin/isUser.php';
 
 // db connection
@@ -117,12 +117,12 @@ unset($query, $result, $row);
 </head>
 
 <!-- Load javascript timers to update page -->
-<body <?php if (isset($arrUser)) echo "onload='StartUp()'"; ?>>
+<body onload='StartUp()'>
 
 <!-- G+ TAGS-->
 <span itemprop="name" style="display: none"><?php echo $social_title;?></span>
 <span itemprop="description" style="display: none"><?php echo $social_description;?></span>
-<img itemprop="image" src="<?php echo $social_image;?>" style="display: none"/>
+<img itemprop="image" src="<?php echo $social_image;?>" style="display: none" alt="social button"/>
 
     <div id="wrapper">
 	<div id="container">
@@ -260,7 +260,7 @@ unset($query, $result, $row);
 				<?php for ($i = $from; $i <= $to; $i++){ ?>
 					<li <?php if($page == $i) echo 'class="selected"'?>>
 						<?php if($page == $i) echo $i;
-						else echo '<a href='.$linkto.$i.' title="go to page '.$i.'">'.$i.'</a>';?>
+						else echo '<a href="'.$linkto.$i.'" title="go to page '.$i.'">'.$i.'</a>';?>
 					</li>
 				<?php } ?>
 				

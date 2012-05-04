@@ -1,5 +1,5 @@
 <?php
-	session_start ();
+	session_start();
 	require_once '../admin/functions.php';
 	require_once rdir().'/admin/config.php';
 	require_once rdir().'/admin/connect.php';
