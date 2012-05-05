@@ -313,5 +313,9 @@ else {
 			<div id="footer"><?php include rdir().'/includes/footer.inc.php';?></div> <!-- /footer -->
 		</div><!-- /container -->
 	</div><!-- /wrapper -->
+	<!-- Load javascript timers to update page -->
+    <script>StartUp(<?php
+ 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
+	    ?>)</script>
 </body>
 </html>

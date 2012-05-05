@@ -172,7 +172,10 @@ $page_title = "NoClan: Password recovery"; // used at 'includes/head.inc'
 <?php include $_SERVER['DOCUMENT_ROOT'].'/includes/head.inc.php';?>
 </head>
 
-<body>
+<!-- Load javascript timers to update page -->
+<body onload='StartUp(<?php
+ 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
+	?>)'>
 	<div id="wrapper">
 		<div id="container">
 

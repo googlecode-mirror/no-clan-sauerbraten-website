@@ -101,7 +101,10 @@ $page_title = "NoClan: Contact"; // used at 'includes/head.inc'
 <?php include $_SERVER['DOCUMENT_ROOT'].'/includes/head.inc.php';?>
 </head>
 
-<body <?php if (isset($arrUser)) echo "onload='StartUp()'"; ?>>
+<!-- Load javascript timers to update page -->
+<body onload='StartUp(<?php
+ 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
+	?>)'>
 	<div id="wrapper">
 		<div id="container">
 

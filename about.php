@@ -31,7 +31,10 @@ $page_title = "NoClan: Philosophy"; // used at 'includes/head.inc'
 ?>
 </head>
 
-<body <?php if (isset($arrUser)) echo "onload='StartUp()'"; ?>>
+<!-- Load javascript timers to update page -->
+<body onload='StartUp(<?php
+ 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
+	?>)'>
 	<div id="wrapper">
 		<div id="container">
 

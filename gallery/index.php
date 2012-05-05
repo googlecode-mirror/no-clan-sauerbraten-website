@@ -124,6 +124,9 @@ $page_title = "NC: Gallery";
 ?>
 <!-- /pwi config -->
 
+<!-- timers & auto-updates -->
+<script language="javascript" type="text/javascript" src="/js/ajax-general.js"></script>
+<!-- /timers & auto-updates -->
 
 </head>
 
@@ -182,7 +185,10 @@ $page_title = "NC: Gallery";
 			<div id="footer"><?php include rdir().'/includes/footer.inc.php';?></div> <!-- /footer -->
 		</div><!-- /container -->
 	</div><!-- /wrapper -->
-
+	<!-- Load javascript timers to update page -->
+    <script>StartUp(<?php
+ 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
+	    ?>)</script>
 </body>
 
 </html>
