@@ -1,11 +1,7 @@
-<?php
-/*
+<!--
  *      latest_comments.inc.php
- *      Shows $n latest comments on posts.
- */
+ *      Filled & updated using check-comments.php
+ -->
+<h3>Latest comments</h3>
+<div id="last_comments"></div>
 
-echo "<h3>Latest comments</h3>";
-echo '<div id="last_comments">';
-
-echo '</div>';
-?>

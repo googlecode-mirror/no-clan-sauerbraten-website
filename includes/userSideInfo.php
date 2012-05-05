@@ -15,16 +15,7 @@
 	
 	<?php if ($arrUser['type'] == 'member' || $arrUser['type'] == 'admin'){?>
 	<div style="text-align: center; padding: 5px; background: url('<?php echo rurl().'/css/art/black10.png';?>'); margin-top: 3px;">
-	    <?php
-	    $idUser=$arrUser['idUser'];
-	    $q="SELECT idMessage FROM messages WHERE messages.to='$idUser' AND is_read='0'";
-	    $r=mysql_query($q, $dbConn);
-	    $messages=mysql_num_rows($r);
-	    echo '<div id="messages">
-	          <p><a href="'.rurl().'/messages/">Messages ('.$messages.')</a>
-	          &bull; <a href="'.rurl().'/messages/full_message.php">Send a message</a></p>
-	          </div>';
-	    ?>
+		<div id="messages"><!-- Filled and auto-updated using ajax. --></div>
 	</div>
     <?php } ?>
 

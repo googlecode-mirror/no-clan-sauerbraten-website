@@ -117,7 +117,9 @@ unset($query, $result, $row);
 </head>
 
 <!-- Load javascript timers to update page -->
-<body onload='StartUp()'>
+<body onload='StartUp(<?php
+ 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
+	?>)'>
 
 <!-- G+ TAGS-->
 <span itemprop="name" style="display: none"><?php echo $social_title;?></span>
