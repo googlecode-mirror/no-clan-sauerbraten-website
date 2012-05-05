@@ -52,7 +52,10 @@ $page_title = "NoClan: Messages"; // used at 'includes/head.inc'
 	</style>
 </head>
 
-<body>
+<!-- Load javascript timers to update page -->
+<body onload='StartUp(<?php
+ 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
+	?>)'>
 	<div id="wrapper">
 		<div id="container">
 

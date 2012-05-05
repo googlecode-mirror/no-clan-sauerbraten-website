@@ -10,6 +10,9 @@
 	// db connection
 	$dbConn = connect_db();
 	
+	if (!empty($_SESSION['NC_user'] ) && !empty($_SESSION['NC_password']))
+    $arrUser = isUser($_SESSION['NC_user'], $_SESSION['NC_password'], $dbConn);
+	
     //Search for the 10 latest logins
     $query = "SELECT idUser, username, date_modified
               FROM users
