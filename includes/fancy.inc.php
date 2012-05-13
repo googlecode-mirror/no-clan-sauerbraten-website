@@ -1,9 +1,10 @@
 <script type="text/javascript" src="<?php echo rurl();?>/js/jquery.min.js"></script>
-<link href="<?php echo rurl();?>/js/jquery.fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css"/>
-<script src="<?php echo rurl();?>/js/jquery.fancybox/jquery.fancybox-1.3.4.pack.js" type="text/javascript"></script>	
+<link href="<?php echo rurl();?>/js/jquery.fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css"/>
+<script src="<?php echo rurl();?>/js/jquery.fancybox/jquery.fancybox.js" type="text/javascript"></script>	
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".fancy").fancybox({
+			'type'          : 'ajax',
 		    'overlayColor'	: '#000',
 		    'overlayOpacity'	: 0.7,
 		    'padding'   	: 1,
@@ -13,7 +14,8 @@
 		});
 		
 		$(".fancy_mini_main").fancybox({
-		'overlayColor'	: '#000',
+			'type'          : 'ajax',
+		    'overlayColor'	: '#000',
 	        'overlayOpacity': 0.7,
 	        'padding'   	: 1,
 	        'hideOnOverlayClick':false,
