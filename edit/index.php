@@ -9,10 +9,12 @@ require_once '../admin/isUser.php';
 $dbConn = connect_db();
 
 
-// Is user connected? Is editor? no? go home then.
-if (!empty($_SESSION['NC_user'] ) && !empty($_SESSION['NC_password'])){
+// Is user connected? Is editor or admin? no? go home then.
+if (!empty($_SESSION['NC_user'] ) && !empty($_SESSION['NC_password']))
+{
     $arrUser = isUser($_SESSION['NC_user'], $_SESSION['NC_password'], $dbConn);
-	if($arrUser['idEditor'] != $arrUser['idUser']){go_home();}
+	if ($arrUser['type'] != 'admin' XOR $arrUser['idEditor'] == $arrUser['idUser']){ go_home(); }
+
 } else { go_home(); }
 
 // Logout
@@ -152,7 +154,7 @@ $page_title = "NC: EDITOR ZONE" // used at includes/head.inc.php
 			<?php if(!empty($get_info)){?>
 				<div class="get_info"><p><?php canput($get_info);?></p></div>
 			<?php }?>
-			<div style="float: right;"><a href="post-manager" title="Create a new post"><button style="font-weight: bold; margin:0;">NEW POST</button></a></div>
+			<div style="float: right;"><a href="post-manager.php" title="Create a new post"><button style="font-weight: bold; margin:0;">NEW POST</button></a></div>
 			<h1><?php echo $arrUser['username']?>'s posts</h1>
 			<h2>Working on...</h2>
 			<table style="width:100%;">
@@ -189,7 +191,7 @@ $page_title = "NC: EDITOR ZONE" // used at includes/head.inc.php
 						$link = rurl().'/post/'.$p['idPost'].'/'.friendly_str($p['title']);
 						$date = $p['date_pub'];
 						$comms = $p['n_comm'].' comments';
-						$extract = cut_string($p['summary'], 115)
+						$extract = cut_string($p['summary'], 25)
 					?>
 					<tr <?php if ($i%2==0) echo 'class="i"';?> style="padding: 0;">
 						<td style="width: 6em;"><?php echo $date;?></td>

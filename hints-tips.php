@@ -73,7 +73,11 @@ $page_title = "NoClan: Hints &amp; tips"; // used at 'includes/head.inc'
 				</p><p><b>Teamwork:</b> Try keeping a balance between personal gains and team gains. Always support the flag carrier if they are close to you. Support them all the way to your base if there is no one else, even if you were at the enemy base. Be their wingman. If they do get killed, chances are you'll score. How many times have you felt alone holding the flag in a team of 10-12 players? Don't do the same to your teammates, as it can give the enemy team easy points.
 				</p><p><b>Base:</b> No Clan members should be against base camping. But if you see your base packed with reds, stay there (and if you die, go back again) until there are no more enemies. There's no point attacking, getting the flag and returning home to see 4 reds shooting at you.
 				</p>
-			
+				
+				<h2>Related posts:</h2>
+				<p>&bull; <a href="<?php echo rurl();?>/post/162/support-the-flag-holder">Support the flag holder!</a> - Tips for a nice teamplay (by Istha).</p>
+				<p>&bull; <a href="<?php echo rurl();?>/post/149/stats-inside-your-hud-script">Stats inside your HUD</a> - Script for having realtime stats on your screen (by Lilleg).</p>
+				<p>&bull; <a href="<?php echo rurl();?>/post/161/crosshairs">Crosshairs</a> - Download our NC Crosshairs (by Panda).</p>
 			</div><!-- /main -->
 	    </div><!-- /content-->
 	    

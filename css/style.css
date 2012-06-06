@@ -266,23 +266,27 @@ div#userAbout{clear: both;}
 	padding-bottom: 3px;
 }
 .summary{margin-bottom: 1em;}
+.search_result{margin-bottom: 0.5em;}
 
 .article{ border:none;}
 
 .summary h1.title{padding: 0.2em 0; margin-bottom: 0.2em;}
+
 .article h1.title{font-size: 150%; padding-bottom: 5px;}
 
-.summary h1 a, .article h1 a{color: #151515;}
-.summary h1 a:HOVER, .article h1 a:HOVER{color: #a00000; text-decoration: none;}
+.summary h1 a, .article h1 a, .search_result h1 a{color: #151515;}
+
+.summary h1 a:HOVER, .article h1 a:HOVER, .search_result h1 a:HOVER{color: #a00000; text-decoration: none;}
 
 .summary img, .article img {border: solid 1px #666;}
 .summary img {float: right; margin: 0 0 0.5em 0.5em;}
 img.summary_img {width: 120px; height: 64px;}
 
-.summary p.info, .article p.info, .summary div.footer{
+.summary p.info, .article p.info, .summary div.footer, .search_result p.info{
 	color: #404040;
 	font: bold 15px Helmet, Freesans, sans-serif;
 }
+
 .summary p.info{padding: 0;}
 .summary div.footer{text-align: right; clear: both;}
 
@@ -291,6 +295,37 @@ img.summary_img {width: 120px; height: 64px;}
 	border-top: solid 1px #959595;
 	margin-bottom: 1em;
 }
+
+.search_result {border-bottom: solid 1px #b0b0b0; padding: 0.5em 0; height: 6em;}
+.search_result h1.title{padding: 0.2em 0; margin-bottom: 0; font-size: 1.2em;}
+.search_result img.summary_img {width: 82px; height: 48px; float: left; margin: 0.2em 1em 0.5em 0;}
+.search_result p.info {font-weight: normal; font-size: 0.8em;}
+
+.comment_found{
+	width: 290px; float: left;
+	font-size: 0.8em;
+	padding: 5px 5px 0 5px;
+	margin: 3px;
+	height: 3.5em;
+	border: solid 1px #b0b0b0;
+	background: url('art/black03.png');
+}
+.comment_found:HOVER{background: url('art/white20.png');}
+.comment_found a{font-weight: normal;}
+.comment_found img { float: left; margin: 4px 5px 0 0;}
+.comment_found a.fancy {font-weight: bold; color: #000;}
+.comment_found a.acomm {color: #153040;}
+
+.user_found{
+	padding: 5px;
+	margin: 3px;
+	height: 73px;
+	background: url('art/black03.png');
+}
+.user_found img{ float: left; margin-right: 5px;}
+.user_found span {font-size: 0.9em;}
+.user_found .location {color: #505050;}
+.user_found a.more {font-weight: normal;}
 
 div.break{height: 1px; border: solid 1px #999; margin: 1em;}
 
@@ -403,6 +438,19 @@ div.prev{float: left;}
 	background: url('art/rightarr-hover-20.png');
 }
 
+/* SEARCH BOX */
+#search-box{background: url('art/white10.png'); padding: 10px; margin-bottom: 1em;}
+	#search-box input{padding: 5px; border: none;}
+	#search-box input[type=text]{ background: url('art/white30.png'); width: 215px; margin-right: 5px; text-align: right; color: #909090;}
+	#search-box input[type=submit] {float: right; margin:0; border: none; width: 24px; background: url('art/search-icon.png') no-repeat;}
+	#search-box input[type=submit]:HOVER{background: url('art/search-icon-hover.png') no-repeat;}
+
+/* SEARCH RESULT div FOR POSTS (expand) */
+div#posts-found {height: 460px; overflow: hidden;}
+div#expand-posts { text-align: center; margin-top: -26px;}
+div#expand-posts button {padding: 2px; background: none; border: solid 1px #b0b0b0; background: url('art/white10.png');}
+div#expand-posts button:HOVER {background: url('art/white30.png'); color: #A00000;}
+
 /* LAST COMMENTS */
 #last_comments{
 	padding: 3px;
@@ -422,9 +470,11 @@ div.prev{float: left;}
 	padding: 3px;
 	background: url('art/white10.png');
 	margin-bottom: 1em;
+	overflow: hidden;
 }
 #links a {font-weight: normal;}
-#links li{line-height: 24px;}
+#links ul li {line-height: 26px; min-width: 50%; float: left;}
+#links ul li img {margin-bottom: -7px;}
 
 /* MESSAGES */
 #message div.header, #message div.body{background: url('art/black05.png'); padding: 5px; margin-bottom: 0.5em; overflow: hidden;}
@@ -442,4 +492,4 @@ div.prev{float: left;}
 #footer p {text-align: center; margin: 0; padding: 0;}
 
 /* SOCIAL BUTTONS */
-div.postSocial{background: url('art/white20.png'); padding: 5px; margin: 1em 0; overflow: hidden; clear: both;}
+div.postSocial{padding: 5px; margin: 0; overflow: hidden; clear: both;}

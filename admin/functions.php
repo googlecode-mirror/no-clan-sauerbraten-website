@@ -234,6 +234,75 @@ function cut_string($str, $limit_chars = 60)
 	return $newstr;
 }
 
+
+function closetags($html)
+{
+	#put all opened tags into an array
+	preg_match_all ( "#<([a-z]+)( .*)?(?!/)>#iU", $html, $result );
+	$openedtags = $result[1];
+	 
+	#put all closed tags into an array
+	preg_match_all ( "#</([a-z]+)>#iU", $html, $result );
+	$closedtags = $result[1];
+	$len_opened = count ( $openedtags );
+	
+	# all tags are closed
+	if( count ( $closedtags ) == $len_opened ){
+		return $html;
+	}
+	
+	$openedtags = array_reverse ( $openedtags );
+	
+	# close tags
+	for( $i = 0; $i < $len_opened; $i++ )
+	{
+		if ( !in_array ( $openedtags[$i], $closedtags )){
+			$html .= "</" . $openedtags[$i] . ">";
+		}else{
+			unset ( $closedtags[array_search ( $openedtags[$i], $closedtags)] );
+		}
+	}
+	return $html;
+}
+    
+function cut_text_by_p($str, $limit_words = 200)
+{
+	/* Cuts a string at $limit number of words,
+	 * but looking for the next </p> to cut there.
+	 * */
+	
+	// get the paragraphs
+	$ps = explode('</p>', $str);
+	
+	$i = 0;
+	$words = 0;
+	$new_str = '';
+	
+	while ($words < $limit_words && $i < count($ps))
+	{
+		// COUNTING WORDS FROM A CLEAN STRING
+		
+		// conver the linebreaks into spaces
+		$s = preg_replace('/\<br(\s*)?\/?\>/i', ' ', $ps[$i]);
+		// strip tags
+		$s = strip_tags(trim($s));
+		// get the words
+		$words += count(explode(' ', $s));
+
+		/* If the last paragraph is not an image or object,
+		 * put some transparency before saving the paragraph.
+		 * */
+		$new_str.= $ps[$i].'</p>';
+		$i++;
+	}
+	
+	if (!are_tags_closed($new_str)){
+		$new_str = closetags($new_str);
+	}
+	
+	return $new_str;
+}
+
 function is_email_valid($email)
 {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)){
