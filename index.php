@@ -1,8 +1,8 @@
 <?php
 session_start ();
 require_once 'admin/config.php';
-require_once 'admin/functions.php';
 require_once 'admin/connect.php';
+require_once 'admin/functions.php';
 require_once 'admin/isUser.php';
 
 // db connection
@@ -110,38 +110,69 @@ if ($page > 0)
 }
 else // we are in a search page
 {
-	// Searches in posts table and stores the info as a list of summaries (reusing the code from summary below)
-	$query="SELECT result.idPost, result.postFor, result.title, result.summary, result.summary_img, result.date_pub, result.userId AS ui, username, COUNT(idComment) AS n_comm FROM (SELECT idPost, postFor, title, summary, summary_img, date_pub, userId, MATCH (posts.tags, posts.title, posts.summary, posts.body) AGAINST('$search_str') as rel FROM posts HAVING rel != 0) AS result INNER JOIN users ON result.userId = users.idUser LEFT JOIN comments ON comments.postId = result.idPost GROUP BY idPost HAVING result.date_pub <= CURRENT_TIMESTAMP ";
-	if (empty($arrUser) || ( !empty($arrUser) && $arrUser['type'] == 'user')) {
-		$query .= "AND result.postFor = 'all' ";
+	if (count(explode(' ', $search_str)) > 1) // More than 1 word for search? Using MATCH/AGAINST
+	{	
+		// Searches in posts table and stores the info as a list of summaries (reusing the code from summary below)
+		$query="SELECT result.idPost, result.postFor, result.title, result.summary, result.summary_img, result.date_pub, result.userId AS ui, username, COUNT(idComment) AS n_comm FROM (SELECT idPost, postFor, title, summary, summary_img, date_pub, userId, MATCH (posts.tags, posts.title, posts.summary, posts.body) AGAINST('$search_str') as rel FROM posts HAVING rel != 0) AS result INNER JOIN users ON result.userId = users.idUser LEFT JOIN comments ON comments.postId = result.idPost GROUP BY idPost HAVING result.date_pub <= CURRENT_TIMESTAMP ";
+		if (empty($arrUser) || ( !empty($arrUser) && $arrUser['type'] == 'user')) {
+			$query .= "AND result.postFor = 'all' ";
+		}
+		$query .= "ORDER BY result.rel DESC LIMIT 0, 10";
+		
+		// Arranges a search in comments -> $arr_search_comments
+		$c_query = "SELECT result.idComment, result.userId, result.postId, result.date, result.content, username, title, postFor FROM (SELECT idComment, postId, userId, date, content, MATCH (comments.content) AGAINST('$search_str') AS rel FROM comments HAVING rel != 0) AS result INNER JOIN users ON result.userId = users.idUser INNER JOIN posts ON result.postId = posts.idPost ";
+		
+		if (empty($arrUser) || ( !empty($arrUser) && $arrUser['type'] == 'user')) {
+			$c_query .= "WHERE postFor = 'all' ";
+		}
 	}
-	$query .= "ORDER BY result.rel DESC LIMIT 0, 10";
+	else // Just 1 word, so LIKE %word%
+	{
+		// POSTS LIKE
+		$p_fields = array('posts.tags', 'posts.title', 'posts.summary', 'posts.body');
+		
+		$query = "SELECT posts.idPost, posts.title, posts.date_pub, posts.summary_img, posts.postFor, posts.tags, posts.summary, posts.body, posts.userId AS ui, username, COUNT(idComment) AS n_comm FROM posts INNER JOIN users ON posts.userId = users.idUser LEFT JOIN comments ON comments.postId = posts.idPost GROUP BY idPost HAVING posts.date_pub <= CURRENT_TIMESTAMP AND ";
+		
+		if (empty($arrUser) || ( !empty($arrUser) && $arrUser['type'] == 'user'))
+			$query .= "posts.postFor = 'all' AND ";
+		
+		$query .= "(";
+			$i = 1;
+			foreach ($p_fields as $f)
+			{
+				$query .= "$f LIKE '%$search_str%' ";
+				if ($i < count($p_fields)) $query .= "OR ";
+				$i++;
+			}
+		$query .= ") ORDER BY posts.date_pub DESC";
+		
+		// Comments LIKE
+		$c_query = "SELECT comments.idComment, comments.userId, comments.postId, comments.date, comments.content, username, title, postFor FROM comments INNER JOIN users ON comments.userId = users.idUser INNER JOIN posts ON comments.postId = posts.idPost WHERE ";
 	
-	// Arranges a search in comments -> $arr_search_comments
-	$c_query = "SELECT result.idComment, result.userId, result.postId, result.date, result.content, username, title, postFor FROM (SELECT idComment, postId, userId, date, content, MATCH (comments.content) AGAINST('$search_str') AS rel FROM comments HAVING rel != 0) AS result INNER JOIN users ON result.userId = users.idUser INNER JOIN posts ON result.postId = posts.idPost ";
-	
-	if (empty($arrUser) || ( !empty($arrUser) && $arrUser['type'] == 'user')) {
-		$c_query .= "WHERE postFor = 'all' ";
+		if (empty($arrUser) || ( !empty($arrUser) && $arrUser['type'] == 'user'))
+			$c_query .= "postFor = 'all' AND ";
+		
+		$c_query .= "comments.content LIKE '%$search_str%' ";
+		$c_query .= "ORDER BY comments.date DESC LIMIT 0,10";
 	}
 	
-	$c_query .= "ORDER BY result.rel DESC LIMIT 0,10";
+	// For searching on users, we always use LIKE
+	$u_query = "SELECT username, idUser, type, first_name, DATE_FORMAT (date_created, '%b %D, %Y') AS date_created, about, location, country FROM users WHERE username LIKE '%$search_str%'";
+	$result = mysql_query($u_query, $dbConn);
+	$arr_search_users = array();
+	while ( $row = mysql_fetch_assoc ($result)) { array_push( $arr_search_users, strip_slashes_arr($row)); }
+	unset($u_query, $result, $row);
 	
+	// Arrange the comments search
 	$result = mysql_query($c_query, $dbConn);
 	$arr_search_comments = array();
 	while ( $row = mysql_fetch_assoc ($result)) { array_push( $arr_search_comments, strip_slashes_arr($row)); }
 	unset($c_query, $result, $row);
 	
-	// Maybe we are looking for users? -> $arr_search_users 
-	$u_query = "SELECT username, idUser, type, first_name, DATE_FORMAT (date_created, '%b %D, %Y') AS date_created, about, location, country FROM users WHERE username LIKE '%$search_str%'";
-	
-	$result = mysql_query($u_query, $dbConn);
-	$arr_search_users = array();
-	while ( $row = mysql_fetch_assoc ($result)) { array_push( $arr_search_users, strip_slashes_arr($row)); }
-	unset($u_query, $result, $row);
-}
+} // End of the SEARCH particularities
 
+// Arrange the posts or the search on posts
 $result = mysql_query($query, $dbConn);
-//...and arrage it in $arrPosts
 $arrPosts = array();
 while ( $row = mysql_fetch_assoc ($result)) { array_push( $arrPosts, strip_slashes_arr($row)); }
 unset($query, $result, $row);
@@ -169,15 +200,12 @@ unset($query, $result, $row);
         <meta property="fb:admins" content="100003397471644" />
 </head>
 
-<!-- Load javascript timers to update page -->
-<body onload='StartUp(<?php
- 	    if (!empty($arrUser) && $arrUser['type'] != 'user' ) echo '1'; 
-	?>)'>
+<body <?php if (isset($arrUser)) echo "onload='StartUp()'"; ?>>
 
 <!-- G+ TAGS-->
 <span itemprop="name" style="display: none"><?php echo $social_title;?></span>
 <span itemprop="description" style="display: none"><?php echo $social_description;?></span>
-<img itemprop="image" src="<?php echo $social_image;?>" style="display: none" alt="social button"/>
+<img itemprop="image" src="<?php echo $social_image;?>" style="display: none"/>
 
     <div id="wrapper">
         <div id="container">

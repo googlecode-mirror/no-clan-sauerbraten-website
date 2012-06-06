@@ -11,7 +11,7 @@ function nc_error_handler ($e_number, $e_message, $e_file, $e_line,$e_vars) {
  // are we live? (0=development phase, 1=we're live)
  // 0 dumps errors on the screen
  // 1 shows generic message on screen, sends detailed message to email(s)
- $live=1; 
+ $live=0; 
  $contact_email1='sauerbraten.no.clan@gmail.com';
  $contact_email2='astrafo02@gmail.com';
  $message = "An error occurred in script '$e_file' on line $e_line:\n$e_message\n";
