@@ -266,16 +266,12 @@ div#userAbout{clear: both;}
 	padding-bottom: 3px;
 }
 .summary{margin-bottom: 1em;}
-.search_result{margin-bottom: 0.5em;}
-
 .article{ border:none;}
 
 .summary h1.title{padding: 0.2em 0; margin-bottom: 0.2em;}
-
 .article h1.title{font-size: 150%; padding-bottom: 5px;}
 
 .summary h1 a, .article h1 a, .search_result h1 a{color: #151515;}
-
 .summary h1 a:HOVER, .article h1 a:HOVER, .search_result h1 a:HOVER{color: #a00000; text-decoration: none;}
 
 .summary img, .article img {border: solid 1px #666;}
@@ -296,10 +292,17 @@ img.summary_img {width: 120px; height: 64px;}
 	margin-bottom: 1em;
 }
 
-.search_result {border-bottom: solid 1px #b0b0b0; padding: 0.5em 0; height: 6em;}
-.search_result h1.title{padding: 0.2em 0; margin-bottom: 0; font-size: 1.2em;}
+.search_result {border-bottom: dotted 1px #b0b0b0;}
+.search_result h1.title{padding: 0 0 0.2em 0; font-size: 1.2em;}
 .search_result img.summary_img {width: 82px; height: 48px; float: left; margin: 0.2em 1em 0.5em 0;}
 .search_result p.info {font-weight: normal; font-size: 0.8em;}
+
+/* SEARCH RESULT div FOR POSTS (expand) */
+div#posts-found {overflow: hidden;}
+
+div#expand-posts { float: right; margin-top: -1px;}
+div#expand-posts button {margin: 0; padding: 2px; background: none; border: dotted 1px #b0b0b0; background: url('art/white30.png');}
+div#expand-posts button:HOVER {background: url('art/black10.png'); color: #A00000;}
 
 .comment_found{
 	width: 290px; float: left;
@@ -317,10 +320,12 @@ img.summary_img {width: 120px; height: 64px;}
 .comment_found a.acomm {color: #153040;}
 
 .user_found{
-	padding: 5px;
-	margin: 3px;
+	background: url("art/black03.png") repeat scroll 0 0 transparent;
+	float: left;
 	height: 73px;
-	background: url('art/black03.png');
+	margin: 3px;
+	padding: 5px 5px 0 0;
+	width: 298px;
 }
 .user_found img{ float: left; margin-right: 5px;}
 .user_found span {font-size: 0.9em;}
@@ -445,11 +450,7 @@ div.prev{float: left;}
 	#search-box input[type=submit] {float: right; margin:0; border: none; width: 24px; background: url('art/search-icon.png') no-repeat;}
 	#search-box input[type=submit]:HOVER{background: url('art/search-icon-hover.png') no-repeat;}
 
-/* SEARCH RESULT div FOR POSTS (expand) */
-div#posts-found {height: 460px; overflow: hidden;}
-div#expand-posts { text-align: center; margin-top: -26px;}
-div#expand-posts button {padding: 2px; background: none; border: solid 1px #b0b0b0; background: url('art/white10.png');}
-div#expand-posts button:HOVER {background: url('art/white30.png'); color: #A00000;}
+
 
 /* LAST COMMENTS */
 #last_comments{

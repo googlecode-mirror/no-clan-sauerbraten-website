@@ -152,8 +152,12 @@ else // we are in a search page
 		if (empty($arrUser) || ( !empty($arrUser) && $arrUser['type'] == 'user'))
 			$c_query .= "postFor = 'all' AND ";
 		
-		$c_query .= "comments.content LIKE '%$search_str%' ";
+		$c_query .= "(";
+			$c_query .= "comments.content LIKE '%$search_str%' ";
+		$c_query .= ")";
+		
 		$c_query .= "ORDER BY comments.date DESC LIMIT 0,10";
+		
 	}
 	
 	// For searching on users, we always use LIKE
@@ -315,7 +319,19 @@ unset($query, $result, $row);
 					<br />
 				<?}?>
 					
-					<?php if (!empty($arrPosts) && $page == 0 && count($arrPosts) > 4) echo '<div id="posts-found">'; // expand search result div 
+					<?php if (!empty($arrPosts) && $page == 0 && count($arrPosts) > 4)
+					{
+						// style of each summary
+						$post_h = 78;
+						$padding = 10;
+						echo '<style type="text/css"> .search_result {height: '.$post_h.'px; padding: '.$padding.'px}</style>';
+						
+						
+						// ok, each post has same height. How many results to show? (height of the posts-found div)
+						$n_shown = 4;
+						$p_f_height = ($post_h + 2*$padding + 1 ) * $n_shown; // #posts-found div (+1 because of the bottom border)
+						echo '<div id="posts-found" style="height: '.$p_f_height.'px;">';
+					}
 					
 					foreach ($arrPosts as $p)
 					{ 
@@ -374,7 +390,7 @@ unset($query, $result, $row);
 						
 						// expander button
 						echo '<div id="expand-posts" onclick=\'document.getElementById("posts-found").style.height="auto";this.style.display="none";\'>';
-						echo '<button>Show more posts</button>';
+						echo '<button>Show all ('.(count($arrPosts)-$n_shown).' more)</button>';
 						echo '</div>';
 						
 					}?>
